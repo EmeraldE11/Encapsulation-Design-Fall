@@ -3,10 +3,11 @@
  * 1. Name:
  *      -Roberto Sanchez-
  *      -Noah McCarthy-
+ *      -Spencer Palmer
  * 2. Assignment Name:
- *      Practice 02: Physics simulator
+ *      Lab 02: Apollo 11 Physics
  * 3. Assignment Description:
- *      Compute how the Apollo lander will move across the screen
+ *      Simulate the Apollo 11 landing
  * 4. What was the hardest part? Be as specific as possible.
  *      -Roberto: The hardest part for my was to formulate some of the calculations such as: updating position
           before updating velocity, or some trigonometry functions. After some correction with my syntax
@@ -14,9 +15,12 @@
 
          - Noah: The toughest part for me was going through all the syntax, as I'm not familiar with this language.-
 
+         -Spencer: The hardest part was troubleshooting errors that occured.-
+
  * 5. How long did it take for you to complete the assignment?
- *      -Roberto: total time in hours: 3 hours.-
- *      -Noah: 2 hours.-
+ *      -Roberto: -
+ *      -Noah: -
+ *      -Spencer: 1 hour-
  *
  * 6. Demo Output:
  *      What is your horizontal velocity (m/s)? 0
@@ -221,12 +225,11 @@ double prompt(string prompt)
 int main()
 {
     // Prompt for input and variables to be computed
-    double dx = prompt("What is your horizontal velocity (m/s)? ");
     double dy = prompt("What is your vertical velocity (m/s)? ");
+    double dx = prompt("What is your horizontal velocity (m/s)? ");
     double y = prompt("What is your altitude (m)? ");
-    // double x = prompt("What is your position (m)? ");
+    double x = 0;
     double aDegrees = prompt("What is the angle of the LM where 0 is up (degrees)? ");
-    // double t = prompt("What is the time interval (s)? ");
     double t = 1;
     double aRadians;            // Angle in radians
     double accelerationThrust;  // Acceleration due to thrust 
@@ -235,6 +238,8 @@ int main()
     double ddx;                 // Total horizontal acceleration
     double ddy;                 // Total vertical acceleration
     double v;                   // Total velocity
+
+    cout << "\nFor the next 5 seconds with the main engine on, the position of the lander is:\n" << endl;
 
     // Convert angle to radians
     aRadians = radiansFromDegrees(aDegrees);
@@ -272,16 +277,52 @@ int main()
         // Output
         cout.setf(ios::fixed | ios::showpoint);
         cout.precision(2);
-        cout << "\tNew position:   (" << x << ", " << y << ")m\n";
-        cout << "\tNew velocity:   (" << dx << ", " << dy << ")m/s\n";
-        cout << "\tTotal velocity:  " << v << "m/s\n\n";
+        cout << i + 1 << "s" << " - x,y:(" << x << ", " << y << ")m dx,dy:(" << dx << ", " << dy << ")m/s speed:" << v << "m/s angle:" << aDegrees << "deg\n";
     }
 
     // Prompt a second angle
-    aDegrees = prompt("What is the new angle of the LM where 0 is up (degrees)? ");
-    cout << "For the next 5 seconds with the main engine on, the position of the lander is : ";
+    aDegrees = prompt("\nWhat is the new angle of the LM where 0 is up (degrees)? ");
+    cout << "\nFor the next 5 seconds with the main engine on, the position of the lander is:\n" << endl;
 
     // Add another for loop (copy the previous)... implement new angle for next 5 results
+    // Convert angle to radians
+    aRadians = radiansFromDegrees(aDegrees);
+
+    // Reformat for loop results - second, position (xy), speed (dx dy), angle
+
+    // Go through the simulator five times
+    for (int i = 5; i < 10; i++)
+    {
+        accelerationThrust = computeAcceleration(THRUST, WEIGHT);
+
+        // calculate horizontal and vertical components of the thrust acceleration
+        ddxThrust = computeHorizontalComponent(aRadians, accelerationThrust);
+        ddyThrust = computeVerticalComponent(aRadians, accelerationThrust);
+
+        //calcualte total acceleration (thrust + gravity)
+        ddx = ddxThrust;
+        ddy = ddyThrust + GRAVITY;
+
+        //Update position before updating velocity
+        double newX = computeDistance(x, dx, ddx, t);
+        double newY = computeDistance(y, dy, ddy, t);
+
+        // Update velocity
+        dx = computeVelocity(dx, ddx, t);
+        dy = computeVelocity(dy, ddy, t);
+
+        //Update position
+        x = newX;
+        y = newY;
+
+        //calculate total velocity
+        v = computeTotalComponent(dx, dy);
+
+        // Output
+        cout.setf(ios::fixed | ios::showpoint);
+        cout.precision(2);
+        cout << i + 1 << "s" << " - x,y:(" << x << ", " << y << ")m dx,dy:(" << dx << ", " << dy << ")m/s speed:" << v << "m/s angle:" << aDegrees << "deg\n";
+    }
 
     return 0;
 }
