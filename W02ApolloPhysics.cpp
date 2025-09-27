@@ -224,9 +224,10 @@ int main()
     double dx = prompt("What is your horizontal velocity (m/s)? ");
     double dy = prompt("What is your vertical velocity (m/s)? ");
     double y = prompt("What is your altitude (m)? ");
-    double x = prompt("What is your position (m)? ");
+    // double x = prompt("What is your position (m)? ");
     double aDegrees = prompt("What is the angle of the LM where 0 is up (degrees)? ");
-    double t = prompt("What is the time interval (s)? ");
+    // double t = prompt("What is the time interval (s)? ");
+    double t = 1;
     double aRadians;            // Angle in radians
     double accelerationThrust;  // Acceleration due to thrust 
     double ddxThrust;           // Horizontal acceleration due to thrust
@@ -237,6 +238,8 @@ int main()
 
     // Convert angle to radians
     aRadians = radiansFromDegrees(aDegrees);
+
+    // Reformat for loop results - second, position (xy), speed (dx dy), angle
 
     // Go through the simulator five times
     for (int i = 0; i < 5; i++)
@@ -273,6 +276,12 @@ int main()
         cout << "\tNew velocity:   (" << dx << ", " << dy << ")m/s\n";
         cout << "\tTotal velocity:  " << v << "m/s\n\n";
     }
+
+    // Prompt a second angle
+    aDegrees = prompt("What is the new angle of the LM where 0 is up (degrees)? ");
+    cout << "For the next 5 seconds with the main engine on, the position of the lander is : ";
+
+    // Add another for loop (copy the previous)... implement new angle for next 5 results
 
     return 0;
 }
