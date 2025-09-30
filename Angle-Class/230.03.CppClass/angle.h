@@ -28,17 +28,33 @@ class TestAngle;
 class Angle
 {
    friend TestAngle;
+   // will the TestAngle class provide the angle attribute?
+   // if not, the line would be:
+   // double radianAngle;
+private:
+	
+	void normalize(double r) {/*redefine r to the equivalent of 0-360 degrees, which is a range between 0 and 2pi. Doesn't return anything*/} 
+	double convertToDegrees(double r) { return /*degrees*/;}
+	double convertToRadians(double d) { return /*radians*/;}
+	
 public:
 	// returns the angle in degrees
 	double getDegrees() const { return convertToDegrees(radians); }
 
 	//returns the angle in radians
-	double getRdians() const { return radians; }
+	double getRadians() const { return radians; }
 
 	//Takes a degrees as a parameter and updates the attribute with the passed parameter. 
 	void setDegrees(double degrees) { radians = convertToDegrees(degrees); }
 
+	void setRadians(double r) {}
 
+	void display(/* iostream i, cout c ??? */) 
+	{
+		// cout.setf(ios::fixed);     // "fixed" means don't use scientific notation
+		// cout.setf(ios::showpoint); // "showpoint" means always show the decimal point
+		// cout.precision(1);         // Set the precision to 1 decimal place of accuracy.
+	}
 };
 
 
