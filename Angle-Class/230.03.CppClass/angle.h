@@ -1,4 +1,4 @@
-/*************************************************************
+﻿/*************************************************************
  * 1. Name:
  *      -your name-
  * 2. Assignment Name:
@@ -33,9 +33,22 @@ class Angle
    double radianAngle;
 private:
 	
-	double normalize(double r) {/*redefine r to the equivalent of 0-360 degrees, which is a range between 0 and 2pi. Doesn't return anything*/} 
+	double normalize(double r)
+	{
+	    // Use fmod to wrap r within [0, TWO_PI)
+	    r = fmod(r, TWO_PI);
+	    if (r < 0)
+	        r += TWO_PI;
+	    return r;
+	} 
 	double convertToDegrees(double r) { return 0.0/*degrees*/;}
-	double convertToRadians(double d) { return 0.0/*radians*/;}
+	double convertToRadians(double d)
+	{
+	    // Convert degrees to radians
+	    double radians = d * (TWO_PI / 360.0);
+	    // Normalize the result to [0, 2π)
+	    return normalize(radians);
+	}
 	
 public:
 	// returns the angle in degrees
@@ -85,5 +98,6 @@ public:
 		// cout.precision(1);         // Set the precision to 1 decimal place of accuracy.
 	}
 };
+
 
 
