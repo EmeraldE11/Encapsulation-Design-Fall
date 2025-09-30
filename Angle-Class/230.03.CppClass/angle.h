@@ -1,6 +1,6 @@
 ﻿/*************************************************************
  * 1. Name:
- *      Spencer Palmer, Noah McCarthy
+ *      Spencer Palmer, Noah McCarthy, Roberto Sanchez
  * 2. Assignment Name:
  *      Practice 03: Angle Class
  * 3. Assignment Description:
@@ -8,9 +8,11 @@
  * 4. What was the hardest part? Be as specific as possible.
  *      Spencer - The hardest part was learning how to connect portions of my code to the rest of the project
  *		Noah - Figuring out whether errors were due to my mistakes or components I hadn't grabbed from my classmates yet.
+ *		Roberto - The harderst part was understanding how to reduce radians to the range of 0 to 2π and degrees to the range of 0 to 360.
  * 5. How long did it take for you to complete the assignment?
  *      Spencer - Total time spent: 1.5 hours
  *		Noah - Total time spent: 2.5 hours
+ *		Roberto - Total time spent: 2 hours
  **************************************************************/
 
 #pragma once
@@ -33,13 +35,13 @@ class Angle
    friend TestAngle;
    // will the TestAngle class provide the angle attribute?
    // if not, the line would be:
-   double radianAngle;
+   double radians;
 private:
 	double degrees;
 
 	double normalize(double r)
 	{
-	    // Use fmod to wrap r within [0, TWO_PI)
+	    // Use fmod to wrap r within 0, TWO_PI
 	    r = fmod(r, TWO_PI);
 	    if (r < 0)
 	        r += TWO_PI;
@@ -55,7 +57,7 @@ private:
 	{
 	    // Convert degrees to radians
 	    double radians = d * (TWO_PI / 360.0);
-	    // Normalize the result to [0, 2π)
+	    // Normalize the result to 0, 2π
 	    return normalize(radians);
 	}
 	
@@ -63,13 +65,13 @@ public:
 	// returns the angle in degrees
 	double getDegrees()
 	{
-		return convertToDegrees(radianAngle); 
+		return convertToDegrees(radians); 
 	}
 
 	//returns the angle in radians
 	double getRadians() const
 	{
-		return radianAngle;
+		return radians;
 	}
 
 	//Takes a degrees as a parameter and updates the attribute with the passed parameter. 
@@ -85,7 +87,7 @@ public:
 			result = convertToDegrees(r);
 		}
 
-		radianAngle = convertToDegrees(result);
+		radians = convertToDegrees(result);
 	}
 
 	void setRadians(double radians)
@@ -97,7 +99,7 @@ public:
 			result = normalize(radians);
 		}
 
-		radianAngle = result;
+		radians = result;
 	}
 
 	void display(ostream& out) const
