@@ -1,14 +1,14 @@
 ﻿/*************************************************************
  * 1. Name:
- *      -your name-
+ *      Spencer Palmer
  * 2. Assignment Name:
  *      Practice 03: Angle Class
  * 3. Assignment Description:
  *      A class to represent an angle
  * 4. What was the hardest part? Be as specific as possible.
- *      -a paragraph or two about how the assignment went for you-
+ *      Spencer - The hardest part was learning how to connect portions of my code to the rest of the project
  * 5. How long did it take for you to complete the assignment?
- *      -total time in hours: reading the assignment, submitting, etc.
+ *      Spencer - Total time spent: 1.5 hours
  **************************************************************/
 
 #pragma once
@@ -32,7 +32,8 @@ class Angle
    // if not, the line would be:
    double radianAngle;
 private:
-	
+	double degrees;
+
 	double normalize(double r)
 	{
 	    // Use fmod to wrap r within [0, TWO_PI)
@@ -41,7 +42,12 @@ private:
 	        r += TWO_PI;
 	    return r;
 	} 
-	double convertToDegrees(double r) { return 0.0/*degrees*/;}
+
+	double convertToDegrees(double r)
+    {
+        return r * 180 /  M_PI;
+    }
+
 	double convertToRadians(double d)
 	{
 	    // Convert degrees to radians
@@ -52,7 +58,7 @@ private:
 	
 public:
 	// returns the angle in degrees
-	double getDegrees() const
+	double getDegrees()
 	{
 		return convertToDegrees(radianAngle); 
 	}
@@ -91,12 +97,14 @@ public:
 		radianAngle = result;
 	}
 
-	void display(/* iostream i, cout c ??? */) 
-	{
-		// cout.setf(ios::fixed);     // "fixed" means don't use scientific notation
-		// cout.setf(ios::showpoint); // "showpoint" means always show the decimal point
-		// cout.precision(1);         // Set the precision to 1 decimal place of accuracy.
-	}
+	void display(ostream& out) const
+        {
+            cout.setf(ios::fixed);     // "fixed" means don't use scientific notation
+            cout.setf(ios::showpoint); // "showpoint" means always show the decimal point
+            cout.precision(1);         // Set the precision to 1 decimal place of accuracy.
+
+            out << degrees << endl;
+        }
 };
 
 
