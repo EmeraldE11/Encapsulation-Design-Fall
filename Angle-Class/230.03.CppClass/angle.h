@@ -30,24 +30,53 @@ class Angle
    friend TestAngle;
    // will the TestAngle class provide the angle attribute?
    // if not, the line would be:
-   // double radianAngle;
+   double radianAngle;
 private:
 	
-	void normalize(double r) {/*redefine r to the equivalent of 0-360 degrees, which is a range between 0 and 2pi. Doesn't return anything*/} 
-	double convertToDegrees(double r) { return /*degrees*/;}
-	double convertToRadians(double d) { return /*radians*/;}
+	double normalize(double r) {/*redefine r to the equivalent of 0-360 degrees, which is a range between 0 and 2pi. Doesn't return anything*/} 
+	double convertToDegrees(double r) { return 0.0/*degrees*/;}
+	double convertToRadians(double d) { return 0.0/*radians*/;}
 	
 public:
 	// returns the angle in degrees
-	double getDegrees() const { return convertToDegrees(radians); }
+	double getDegrees() const
+	{
+		return convertToDegrees(radianAngle); 
+	}
 
 	//returns the angle in radians
-	double getRadians() const { return radians; }
+	double getRadians() const
+	{
+		return radianAngle;
+	}
 
 	//Takes a degrees as a parameter and updates the attribute with the passed parameter. 
-	void setDegrees(double degrees) { radians = convertToDegrees(degrees); }
+	void setDegrees(double degrees)
+	{
+		double result = degrees;
 
-	void setRadians(double r) {}
+		if (degrees < 0 || degrees > 360)
+		{
+			double r = convertToRadians(degrees);
+			r = normalize(r);
+			
+			result = convertToDegrees(r);
+		}
+
+		radianAngle = convertToDegrees(result);
+	}
+
+	void setRadians(double radians)
+	{
+		double result = radians;
+
+		if (radians < 0 || radians > TWO_PI)
+		{
+			result = normalize(radians);
+		}
+
+		radianAngle = result;
+	}
 
 	void display(/* iostream i, cout c ??? */) 
 	{
