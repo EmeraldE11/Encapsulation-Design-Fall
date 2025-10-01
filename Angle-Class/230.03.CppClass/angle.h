@@ -1,18 +1,21 @@
 ﻿/*************************************************************
  * 1. Name:
- *      Spencer Palmer
+ *      Spencer Palmer, Noah McCarthy
  * 2. Assignment Name:
  *      Practice 03: Angle Class
  * 3. Assignment Description:
  *      A class to represent an angle
  * 4. What was the hardest part? Be as specific as possible.
  *      Spencer - The hardest part was learning how to connect portions of my code to the rest of the project
+ *		Noah - Figuring out whether errors were due to my mistakes or components I hadn't grabbed from my classmates yet.
  * 5. How long did it take for you to complete the assignment?
  *      Spencer - Total time spent: 1.5 hours
+ *		Noah - Total time spent: 2.5 hours
  **************************************************************/
 
 #pragma once
 
+#define _USE_MATH_DEFINES
 #define TWO_PI 6.28318530718
 
 #include <math.h>    // for floor()
