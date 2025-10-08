@@ -10,9 +10,10 @@
  *      the hardest parts. Overall the project wasn't too difficult to complete.
  * 5. How long did it take for you to complete the assignment?
  *      Spencer - 2 hours
+ *      Noah - 40 minutes
  **************************************************************/
 
-
+#define _USE_MATH_DEFINES
 #define TWO_PI 6.28318530718
 
 #include <math.h>    // for floor()
@@ -33,7 +34,7 @@ public:
    // Default constructor
    Angle()                 : radians(0.0)  {}
    Angle(const Angle& rhs) : radians(rhs.radians)  {}
-   Angle(double degrees)     { }
+   Angle(double degrees)   : radians(convertToRadians(degrees)) {}
 
    // Getters
    // returns the angle in degrees
