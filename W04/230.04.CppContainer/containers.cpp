@@ -9,9 +9,13 @@
  *      -a paragraph or two about how the assignment went for you-
  *      Noah - the toughest part for me was breaking down all the keywords in the parameters (const, &, etc.).
  *             I knew how I wanted to run the functions, but I didn't have all the knowledge of syntax I needed either.
+ *      Roberto - The hardest part was to learn and understand the syntax. Also finding the better way to efficiently implement these functions.
+ *        Spencer - The hardest part was learning the syntax and best way to properly implement the library methods.
  * 5. How long did it take for you to complete the assignment?
  *      -total time in hours: reading the assignment, submitting, etc.
- *     Noah - I spent 30 minutes on this
+ *     Noah - I spent 30 minutes on this 
+ *      Roberto - I spent around 45 minutes on this assignment
+ *      Spencer - I spent 30 minutes
  **************************************************************/
 
 
