@@ -36,7 +36,7 @@ list<string> arrayToListBackwards(string a[], int num)
    list<string> result;
    for (int i = num - 1; i >= 0; i--)
    {
-      result.push_back(a[i]);
+      result.push_front(a[i]);
    }
    return result;
 }
