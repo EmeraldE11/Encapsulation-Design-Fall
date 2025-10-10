@@ -7,8 +7,11 @@
  *      Work with a list and a vector
  * 4. What was the hardest part? Be as specific as possible.
  *      -a paragraph or two about how the assignment went for you-
+ *      Noah - the toughest part for me was breaking down all the keywords in the parameters (const, &, etc.).
+ *             I knew how I wanted to run the functions, but I didn't have all the knowledge of syntax I needed either.
  * 5. How long did it take for you to complete the assignment?
  *      -total time in hours: reading the assignment, submitting, etc.
+ *     Noah - I spent 30 minutes on this
  **************************************************************/
 
 
@@ -66,6 +69,13 @@ vector<string> listToVectorBackwards(const list<string>& l)
  *****************************/
 bool findElementInVector(const vector<string> & v, const string& element)
 {
+    for (int i = 0; i < v.size(); i++)
+    {
+        if (v[i] == element)
+        {
+            return true;
+        }
+    }
    return false;
 }
 
