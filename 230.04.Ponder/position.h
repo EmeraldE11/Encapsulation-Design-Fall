@@ -45,8 +45,8 @@ public:
    // setters
    void setX(double x) { this->x = x; }
    void setY(double y) { this->y = y; }
-   void addX(double x) { this->x = 99.9; }
-   void addY(double y) { this->y = 88.8; }
+   void addX(double x) { this->x += x; }
+   void addY(double y) { this->y += y; }
    void add (const Acceleration & a, const Velocity & v, double t);
    Position & operator = (const Position & rhs)
    {
