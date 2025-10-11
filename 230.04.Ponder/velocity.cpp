@@ -39,6 +39,6 @@ double Velocity::getSpeed() const
 void Velocity::set(const Angle & angle, double magnitude)
 {
    double radians = angle.getRadians();
-   dx = magnitude * cos(radians);
-   dy = magnitude * sin(radians);
+   dx = magnitude * sin(radians);
+   dy = magnitude * cos(radians);
 }

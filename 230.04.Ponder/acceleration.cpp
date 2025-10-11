@@ -67,9 +67,10 @@ void Acceleration::add(const Acceleration& acceleration)
  *********************************************/
 void Acceleration::set(const Angle& angle, double magnitude)
 {
-	double radians = angle.getDegrees(); // cos and sin need doubles, this uses the angle to pull the radians we need.
-	ddx = magnitude * std::cos(radians);
-	ddy = magnitude * std::sin(radians);
+	double radians = angle.getRadians(); // cos and sin need doubles, this uses the angle to pull the radians we need.
+	ddx = magnitude * std::sin(radians);
+	ddy = magnitude * std::cos(radians);
+
 }
 
 /*********************************************
