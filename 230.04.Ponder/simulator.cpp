@@ -47,7 +47,23 @@ void Simulator::display()
      //gout.drawLander(posLander, a.getRadians());
 
    // draw a star
-     //gout.drawStar(posStar, phase);
+     for (int i = -1; i < 0; i++)
+     {
+         // Twinkling Stars
+         gout.drawStar(Position(50,  300), phase++);
+         gout.drawStar(Position(260, 350), phase++);
+         gout.drawStar(Position(150,  280), phase++);
+         gout.drawStar(Position(200,  380), phase++);
+         gout.drawStar(Position(250,  295), phase++);
+         gout.drawStar(Position(165,  335), phase++);
+         gout.drawStar(Position(25,  355), phase++);
+         gout.drawStar(Position(125, 370), phase++);
+         gout.drawStar(Position(225,  320), phase++);
+         gout.drawStar(Position(318,  365), phase++);
+         gout.drawStar(Position(375,  350), phase++);
+         gout.drawStar(Position(95,  330), phase++);
+         gout.drawStar(Position(332,  300), phase++);
+      }
 }
 
 
