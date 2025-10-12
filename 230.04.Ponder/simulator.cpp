@@ -22,7 +22,11 @@ class Simulator
 {
 public:
    // set up the simulator
-   Simulator(const Position & posUpperRight) : ground(posUpperRight) {}
+   Simulator(const Position & posUpperRight) : ground(posUpperRight) 
+   {
+       posLander.setX(posUpperRight.getX() / 2.0);
+       posLander.setY(posUpperRight.getY() / 2.0);
+   }
        
    // display stuff on the screen
    void display();
@@ -30,6 +34,7 @@ public:
    unsigned char phase;
    Angle a;
    Ground ground;
+   Position posLander;
 };
 
 /**********************************************************
@@ -45,6 +50,7 @@ void Simulator::display()
 
    // draw the lander
      //gout.drawLander(posLander, a.getRadians());
+     gout.drawLander(posLander, a.getRadians());
 
    // draw a star
      //gout.drawStar(posStar, phase);
@@ -66,10 +72,18 @@ void callBack(const Interface* pUI, void* p)
 
    // handle input
    if (pUI->isRight())
-      ;   // rotate right here
-   if (pUI->isLeft())
-      ;   // rotate left here
+   {
+       double r = pSimulator->a.getRadians();
+       r -= 0.1;
+       pSimulator->a.setRadians(r);
+   }
 
+   if (pUI->isLeft())
+   {
+       double r = pSimulator->a.getRadians();
+       r += 0.1;
+       pSimulator->a.setRadians(r);
+   }
 
 }
 
