@@ -2,7 +2,7 @@
 * Program:
 *    Account Balance Reader
 * Summary:
-*    Reads a balance from data.txt and displays it.
+*    Reads a balance from data.txt 
 ***********************************************************************/
 
 #include <iostream>
