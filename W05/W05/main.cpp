@@ -25,6 +25,13 @@ double readBalance()
     
     fin.open("data.txt");
 
+    // Check if file was opened successfully
+    if (!fin.is_open())
+    {
+        cout << "Unable to open data.txt." << endl;
+        balance = 0.0;
+    }
+
     // Try
     if (fin.fail())
         cout << "ERROR FOR fin!\n";
@@ -70,6 +77,12 @@ void writeBalance(double balance)
     // Next, open the file.
     fout.open("data.txt");
 
+    // Check if file was opened successfully
+    if (!fout.is_open())
+    {
+        cout << "Unable to open data.txt." << endl;
+    }
+
     // Try to write to the file.
     if (fout.fail())
         cout << "ERROR FOR fout!\n";
@@ -89,17 +102,19 @@ int main()
     double balance = 0.0;
 
     // Read the current balance
-    balance = readBalance(success);
-
-    // Check if file was read successfully
-    if (!success)
-    {
-        cout << "Unable to open data.txt." << endl;
-        balance = 0.0;
-    }
+    balance = readBalance();
 
     // Display current balance
     displayBalance(balance);
+
+    // Prompt new balance
+    updateBalance(balance);
+
+    // Display new balance
+    displayBalance(balance);
+
+    // Write the balance to the file.
+    writeBalance(balance);
 
     return 0;
 }
