@@ -29,14 +29,10 @@ double readBalance()
     if (!fin.is_open())
     {
         cout << "Unable to open data.txt." << endl;
-        balance = 0.0;
+        return balance;
     }
 
-    // Try
-    if (fin.fail())
-        cout << "ERROR FOR fin!\n";
-    if (fin >> input)
-        balance = input;
+    fin >> balance;
     // Close the output stream.
     fin.close();
 
