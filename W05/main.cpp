@@ -46,6 +46,18 @@ void displayBalance(double balance)
 }
 
 /***********************************************************************
+ * updateBalance
+ * Prompts the user for the change in the balance they want to make, and
+ * increments it with the original value of balance.
+ ***********************************************************************/
+void updateBalance(double balance)
+{
+    double change = cin >> "Change: ";
+    balance += change;
+}
+
+
+/***********************************************************************
  * writeBalance
  * Writes the updated balance back to data.txt file
  ***********************************************************************/
@@ -86,12 +98,8 @@ int main()
    // Display current balance
    displayBalance(balance);
    
-   // Prompt user for amount to add
-   cout << "Enter amount to add: ";
-   cin >> addAmount;
-   
    // Update the balance
-   balance += addAmount;
+   balance = updateBalance(balance);
    
    // Write the updated balance back to file
    if (writeBalance(balance))
