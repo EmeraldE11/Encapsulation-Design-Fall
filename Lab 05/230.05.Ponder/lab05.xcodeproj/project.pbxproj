@@ -56,7 +56,6 @@
 		C1D408182B16A45600162ADC /* velocity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = velocity.h; sourceTree = "<group>"; };
 		C1D408192B16A45600162ADC /* velocity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = velocity.cpp; sourceTree = "<group>"; };
 		C1D4081A2B16A45700162ADC /* thrust.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = thrust.h; sourceTree = "<group>"; };
-		C1D4081B2B16A45700162ADC /* testThrust.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testThrust.h; sourceTree = "<group>"; };
 		C1D4081C2B16A45700162ADC /* testAngle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testAngle.h; sourceTree = "<group>"; };
 		C1D4081D2B16A45700162ADC /* acceleration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = acceleration.h; sourceTree = "<group>"; };
 		C1D4081E2B16A45700162ADC /* testLander.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testLander.h; sourceTree = "<group>"; };
@@ -67,6 +66,7 @@
 		C1D408232B16A45700162ADC /* angle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = angle.cpp; sourceTree = "<group>"; };
 		C1D408242B16A45700162ADC /* uiInteract.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uiInteract.cpp; sourceTree = "<group>"; };
 		C1D408252B16A45700162ADC /* lander.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lander.cpp; sourceTree = "<group>"; };
+		DE25C6A72EA4314A00745F3A /* testThrust.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = testThrust.h; sourceTree = "<group>"; };
 		DE7695502EA42EAE00C2983A /* star.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = star.cpp; sourceTree = "<group>"; };
 		DE7695522EA42F1E00C2983A /* thrust.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = thrust.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,7 +107,7 @@
 				C1D4081C2B16A45700162ADC /* testAngle.h */,
 				C1D4081E2B16A45700162ADC /* testLander.h */,
 				C1D408212B16A45700162ADC /* testPosition.h */,
-				C1D4081B2B16A45700162ADC /* testThrust.h */,
+				DE25C6A72EA4314A00745F3A /* testThrust.h */,
 				C1D4080B2B16A45600162ADC /* testVelocity.h */,
 				C1D4081A2B16A45700162ADC /* thrust.h */,
 				C1D408112B16A45600162ADC /* uiDraw.cpp */,

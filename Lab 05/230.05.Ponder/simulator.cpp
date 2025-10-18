@@ -23,9 +23,18 @@ using namespace std;
 class Simulator
 {
 public:
-   Simulator(const Position & posUpperRight) : ground(posUpperRight) {}
+   Simulator(const Position & posUpperRight) : ground(posUpperRight)
+   {
+      // Set each star to random positions and phases
+      for (int i = 0; i < 50; i++)
+         {
+            stars[i].reset(posUpperRight.getX(), posUpperRight.getY());
+         }
+   }
    Ground ground;
-   Star star;
+   // Create 50 stars
+   Star stars[50];
+   
 };
 
 
@@ -45,8 +54,7 @@ void callBack(const Interface* pUI, void* p)
    // draw the stars
    for(int i = 0; i < 50; i++)
    {
-      pSimulator->star.reset(400, 400);
-      pSimulator->star.draw(gout);
+      pSimulator->stars[i].draw(gout);
    }
 
    // draw the ground
