@@ -50,19 +50,19 @@ public:
   double   getMaxSpeed()    const;
 
   // draw the lander on the screen
-  void draw(const Thrust & thrust, ogstream & gout) const;
+  void draw(const Thrust & thrust, ogstream & gout) const; //draw the lander and turn on the flames as necessary.
  
   // handle input
-  Acceleration input(const Thrust & thrust, double gravity);
+  Acceleration input(const Thrust & thrust, double gravity); //convert thrust and gravity into an acceleration object
 
   // what happens when we coast?
-  void coast(Acceleration & acceleration, double time);
+  void coast(Acceleration & acceleration, double time); //move the lander
 
-  // straighten the lander and put it on the ground
-  void land()  {  }
+  // straighten the lander and put it on the ground, change the status to SAFE
+  void land();
 
-  // we are dead. Draw the lander upside down
-  void crash() {  }
+  // we are dead. Draw the lander upside downand change the status to DEAD
+  void crash();
 
 private:
    Status   status;      // are we dead or not?
