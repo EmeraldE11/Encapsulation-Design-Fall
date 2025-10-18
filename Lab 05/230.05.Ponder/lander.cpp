@@ -71,7 +71,6 @@ void Lander::draw(const Thrust& thrust, ogstream& gout) const
  * INPUT
  * Accept input from the Neil Armstrong
  ***************************************************************/
-#include <cmath> // at top of file if not already
 
 Acceleration Lander::input(const Thrust& thrust, double gravity)
 {
