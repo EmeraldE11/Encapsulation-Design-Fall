@@ -384,16 +384,16 @@ private:
          ui.isRightPress = 0;
          Thrust t;
          t.mainEngine = true;
-         t.clockwise = false;
-         t.counterClockwise = true;
+         t.clockwise = true;
+         t.counterClockwise = false;
 
          // exercise
          t.set(&ui);
 
          // verify
          assertUnit(t.mainEngine == false);
-         assertUnit(t.clockwise == true);
-         assertUnit(t.counterClockwise == false);
+         assertUnit(t.clockwise == false);
+         assertUnit(t.counterClockwise == true);
          assertUnit(ui.isDownPress == 0);
          assertUnit(ui.isLeftPress == 1);
          assertUnit(ui.isRightPress == 0);
@@ -417,16 +417,16 @@ private:
          ui.isRightPress = 2;
          Thrust t;
          t.mainEngine = true;
-         t.clockwise = true;
-         t.counterClockwise = false;
+         t.clockwise = false;
+         t.counterClockwise = true;
 
          // exercise
          t.set(&ui);
 
          // verify
          assertUnit(t.mainEngine == false);
-         assertUnit(t.clockwise == false);
-         assertUnit(t.counterClockwise == true);
+         assertUnit(t.clockwise == true);
+         assertUnit(t.counterClockwise == false);
          assertUnit(ui.isDownPress == 0);
          assertUnit(ui.isLeftPress == 0);
          assertUnit(ui.isRightPress == 2);

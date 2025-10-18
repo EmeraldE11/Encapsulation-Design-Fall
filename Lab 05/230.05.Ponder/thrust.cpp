@@ -81,11 +81,11 @@ bool Thrust::isCounter() const
 void Thrust::set(const Interface * pUI)
 {
    // Check if down arrow is pressed for main engine
-   mainEngine = pUI->isDown() > 0;
+   mainEngine = pUI->isDown();
    
    // Check if right arrow is pressed for clockwise rotation
-   clockwise = pUI->isRight() > 0;
+   clockwise = pUI->isRight();
    
    // Check if left arrow is pressed for counterclockwise rotation
-   counterClockwise = pUI->isLeft() > 0;
+   counterClockwise = pUI->isLeft();
 }
