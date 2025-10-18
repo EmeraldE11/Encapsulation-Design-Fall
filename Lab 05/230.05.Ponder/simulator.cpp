@@ -23,7 +23,7 @@ using namespace std;
 class Simulator
 {
 public:
-   Simulator(const Position & posUpperRight) : ground(posUpperRight)
+   Simulator(const Position & posUpperRight) : ground(posUpperRight), lander(posUpperRight)
    {
       // Set each star to random positions and phases
       for (int i = 0; i < 50; i++)
@@ -34,7 +34,7 @@ public:
    Ground ground;
    // Create 50 stars
    Star stars[50];
-   
+   Lander lander;
 };
 
 
