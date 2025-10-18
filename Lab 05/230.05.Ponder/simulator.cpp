@@ -25,6 +25,7 @@ class Simulator
 public:
    Simulator(const Position & posUpperRight) : ground(posUpperRight) {}
    Ground ground;
+   Star star;
 };
 
 
@@ -40,9 +41,18 @@ void callBack(const Interface* pUI, void* p)
    Simulator * pSimulator = (Simulator *)p;
 
    ogstream gout;
+   
+   // draw the stars
+   for(int i = 0; i < 50; i++)
+   {
+      pSimulator->star.reset(400, 400);
+      pSimulator->star.draw(gout);
+   }
 
    // draw the ground
    pSimulator->ground.draw(gout);
+   
+   
 }
 
 /*********************************
