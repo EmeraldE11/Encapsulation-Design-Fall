@@ -23,18 +23,19 @@ using namespace std;
 class Simulator
 {
 public:
-   Simulator(const Position & posUpperRight) : ground(posUpperRight), lander(posUpperRight)
+   Simulator(const Position & posUpperRight) : ground(posUpperRight), lander(posUpperRight), thrust()
    {
       // Set each star to random positions and phases
-      for (int i = 0; i < 50; i++)
+      for (int i = 0; i < 100; i++)
          {
             stars[i].reset(posUpperRight.getX(), posUpperRight.getY());
          }
    }
    Ground ground;
    // Create 50 stars
-   Star stars[50];
+   Star stars[100];
    Lander lander;
+   Thrust thrust;
 };
 
 
@@ -52,13 +53,16 @@ void callBack(const Interface* pUI, void* p)
    ogstream gout;
    
    // draw the stars
-   for(int i = 0; i < 50; i++)
+   for(int i = 0; i < 100; i++)
    {
       pSimulator->stars[i].draw(gout);
    }
 
    // draw the ground
    pSimulator->ground.draw(gout);
+   
+   // draw the lander
+   pSimulator->lander.draw(pSimulator->thrust, gout);
    
    
 }

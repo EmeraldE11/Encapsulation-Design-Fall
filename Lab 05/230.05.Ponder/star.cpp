@@ -19,7 +19,7 @@ void Star::reset(double width, double height)
 {
    // Generate random position within the given bounds
    pos.setX(random(0.0, width));
-   pos.setY(random(200.0, height));
+   pos.setY(random(50.0, height));
    
    // Reset phase to a random point for variety in twinkling
    phase = random(0, 255);

@@ -108,13 +108,14 @@ Acceleration Lander::input(const Thrust& thrust, double gravity)
  *******************************************************************/
 void Lander :: coast(Acceleration & acceleration, double time)
 {
-    // update velocity
-    velocity.addDX(acceleration.getDDX() * time);
-    velocity.addDY(acceleration.getDDY() * time);
-
-    // update position
-    pos.addX(velocity.getDX() * time);
-    pos.addY(velocity.getDY() * time);
+   
+   // update position
+   pos.addX(velocity.getDX() * time + 0.5 * acceleration.getDDX() * time * time);
+   pos.addY(velocity.getDY() * time + 0.5 * acceleration.getDDY() * time * time);
+   
+   // update velocity
+   velocity.addDX(acceleration.getDDX() * time);
+   velocity.addDY(acceleration.getDDY() * time);
 
 }
 
