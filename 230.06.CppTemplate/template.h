@@ -1,12 +1,13 @@
 /*************************************************************
  * 1. Name:
- *      Roberto Sanchez
+ *      Roberto Sanchez, Spencer Palmer
  * 2. Assignment Name:
  *      Practice 06: Templates
  * 3. Assignment Description:
  *      Find the biggest element in an array, and a stack data structure.
  * 4. What was the hardest part? Be as specific as possible.
  *      Roberto - The hardest part was understanding the syntax and how to properly implement the templates.
+        Spencer - The hardest part was making sure everything needed for the template was there without adding more than necessary.
  * 5. How long did it take for you to complete the assignment?
  *      Total time spent: 33 minutes
  **************************************************************/
