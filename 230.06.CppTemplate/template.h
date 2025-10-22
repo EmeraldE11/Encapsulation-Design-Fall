@@ -1,6 +1,6 @@
 /*************************************************************
  * 1. Name:
- *      Roberto Sanchez, Spencer Palmer
+ *      Roberto Sanchez, Spencer Palmer, Noah McCarthy
  * 2. Assignment Name:
  *      Practice 06: Templates
  * 3. Assignment Description:
@@ -8,6 +8,7 @@
  * 4. What was the hardest part? Be as specific as possible.
  *      Roberto - The hardest part was understanding the syntax and how to properly implement the templates.
         Spencer - The hardest part was making sure everything needed for the template was there without adding more than necessary.
+        Noah - The hardest part for me was also the syntax, and remembering how templates need to be formatted/separated uniquely.
  * 5. How long did it take for you to complete the assignment?
  *      Total time spent: 33 minutes
  **************************************************************/
@@ -68,3 +69,4 @@ private:
    T data[10];
    int numElements;
 };
+
