@@ -34,7 +34,7 @@ void Lander :: reset(const Position & posUpperRight)
 
    angle.setRadians(0.0);               // straight up
    status = PLAYING;                    // make sure we are playing
-   fuel = 500.0;                        // start fuel
+   fuel = 5000.0;                        // start fuel
    velocity.setDX(random(-10.0, -4.0)); // random horizontal velocity
    velocity.setDY(random(-2.0, 2.0));   // random vertical velocity
    pos.setX(posUpperRight.getX() - 1.0);                     // 1 pixel from right edge
@@ -74,29 +74,46 @@ void Lander::draw(const Thrust& thrust, ogstream& gout) const
 
 Acceleration Lander::input(const Thrust& thrust, double gravity)
 {
-    // start with zero horizontal accel and gravity vertical accel
-    double ddx = 0.0;
-    double ddy = -gravity;
+    Acceleration accel;
+   
+    // start with gravity vertical accel
+    accel.addDDY(gravity);
+   
+    if(fuel == 0.0)
+       return accel;
 
     // get the engine thrust magnitude (m/s^2)
     double engine = thrust.mainEngineThrust();
 
     // apply main engine thrust in the direction of the current angle (if engine on and we have fuel)
-    if (engine > 0.0 && fuel > 0.0)
+    if (thrust.isMain())
     {
         // compute direction from angle's radians
-        // Expectation: Angle exposes getRadians(). If your Angle uses a different accessor, replace it here.
         double a = angle.getRadians();
 
         // x component = cos(theta), y component = sin(theta)
-        ddx += engine * std::cos(a);
-        ddy += engine * std::sin(a);
+        accel.addDDX(engine * -sin(a));
+        accel.addDDY(engine * cos(a));
+       
+        // Burn fuel proportional to thrust
+        fuel -= 10;
+    }
+   
+    if (thrust.isClock())
+    {
+       angle.add(0.1);
+       fuel -= 1;
     }
 
-    // create acceleration object and return
-    Acceleration accel;
-    accel.setDDX(ddx);
-    accel.setDDY(ddy);
+    if (thrust.isCounter())
+    {
+       angle.add(-0.1);
+       fuel -= 1;
+    }
+   
+    if (fuel < 0.0)
+       fuel = 0.0;
+   
     return accel;
 }
 
@@ -110,12 +127,10 @@ void Lander :: coast(Acceleration & acceleration, double time)
 {
    
    // update position
-   pos.addX(velocity.getDX() * time + 0.5 * acceleration.getDDX() * time * time);
-   pos.addY(velocity.getDY() * time + 0.5 * acceleration.getDDY() * time * time);
+   pos.add(acceleration, velocity, time);
    
    // update velocity
-   velocity.addDX(acceleration.getDDX() * time);
-   velocity.addDY(acceleration.getDDY() * time);
+   velocity.add(acceleration, time);
 
 }
 
