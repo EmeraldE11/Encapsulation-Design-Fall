@@ -61,7 +61,7 @@ void Lander::draw(const Thrust& thrust, ogstream& gout) const
     bool right = thrust.isCounter();   // counterclockwise rotation -> RIGHT flame
 
     // Draw flames if any thruster is on
-    if (bottom || left || right)
+    if ((bottom || left || right) && fuel > 0)
         gout.drawLanderFlames(pos, a, bottom, left, right);
 }
 

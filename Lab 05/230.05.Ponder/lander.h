@@ -63,6 +63,11 @@ public:
 
   // we are dead. Draw the lander upside downand change the status to DEAD
   void crash();
+   
+   Angle getAngle()
+   {
+      return angle;
+   }
 
 private:
    Status   status;      // are we dead or not?
