@@ -84,7 +84,8 @@ public:
     // Add to radians
     Angle& add(double delta)
     {
-        radians += normalize(delta); // add give value to radians
+        radians += delta; // add give value to radians
+        radians = normalize(radians);
 
         return *this;
     }
