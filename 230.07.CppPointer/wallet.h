@@ -1,6 +1,6 @@
 /*************************************************************
  * 1. Name:
- *      -your name-
+ *      Roberto Sanchez, Noah McCarthy, Spencer Palmer
  * 2. Module
  *      WALLET
  * 3. Assignment Description:
