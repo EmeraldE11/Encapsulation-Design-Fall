@@ -62,6 +62,7 @@ public:
     double dy = 0.0;                // vertical velocity
     double velocity = 827.0;        // total velocity
     double acceleration = -9.8;
+    double hangTime = 0.0;          // time projectile is in the air
 
     // Constructor
     Howitzer() {}
@@ -90,11 +91,41 @@ public:
     }
 
     void printStatus() {
-        cout << "Time: " << time
-            << "s, Distance: " << distance
-            << "m, Altitude: " << altitude << "m" << endl;
+        cout << "Distance: " << distance
+            << "m   Altitude: " << altitude
+            << "m   Hang Time: " << hangTime << "s" << endl;
     }
 };
+
+// Gravity lookup table: altitude (m) -> gravity (m/s^2)
+const int GRAVITY_TABLE_SIZE = 8;
+const double altitudeTable[GRAVITY_TABLE_SIZE] = {
+    0.0, 1000.0, 2000.0, 3000.0, 4000.0, 5000.0, 6000.0, 7000.0
+};
+const double gravityTable[GRAVITY_TABLE_SIZE] = {
+    -9.807, -9.804, -9.801, -9.797, -9.794, -9.791, -9.788, -9.785
+};
+
+// Linear interpolation for gravity based on altitude
+double getGravity(double altitude) {
+    // Clamp altitude to table range
+    if (altitude <= altitudeTable[0]) {
+        return gravityTable[0];
+    }
+    if (altitude >= altitudeTable[GRAVITY_TABLE_SIZE - 1]) {
+        return gravityTable[GRAVITY_TABLE_SIZE - 1];
+    }
+    
+    // Find the two altitudes to interpolate between
+    int i = 0;
+    while (i < GRAVITY_TABLE_SIZE - 1 && altitude >= altitudeTable[i + 1]) {
+        i++;
+    }
+    
+    // Linear interpolation: my = ay + (zy - ay) * t
+    double t = (altitude - altitudeTable[i]) / (altitudeTable[i + 1] - altitudeTable[i]);
+    return gravityTable[i] + (gravityTable[i + 1] - gravityTable[i]) * t;
+}
 
 int main() {
     Howitzer pew;
@@ -102,19 +133,58 @@ int main() {
     pew.getUserInput();
 
     double initialSpeed = 827.0;
-    double oneAcceleration = -9.8;
-
     pew.splitVelocity(initialSpeed);
 
-    double deltaTime = 1.0;       // Step 1 uses 1-second increments
+    // Constants for simulation
+    double deltaTime = 0.01;       // 0.01 second timestep for accuracy
+    
+    // Drag constants
+    const double dragCoefficient = 0.3;
+    const double airDensity = 0.6;
+    const double projectileDiameter = 0.15489;  // 154.89 mm in meters
+    const double projectileMass = 46.7;         // kg (typical artillery shell mass)
+    const double area = PI * (projectileDiameter / 2.0) * (projectileDiameter / 2.0);
 
-    // Step 1: loop 20 iterations (inertia test)
-    for (int i = 0; i < 20; ++i) {
-        pew.updatePosition(deltaTime, oneAcceleration);
-        pew.updateVelocity(pew.velocity, oneAcceleration, deltaTime);
+    // Main simulation loop - continue until ground impact
+    while (pew.altitude >= 0.0) {
+        // Calculate current velocity magnitude
+        pew.velocity = sqrt(pew.dx * pew.dx + pew.dy * pew.dy);
+        
+        // Calculate drag force: d = 0.5 * c * p * v * v * a
+        double dragForce = 0.5 * dragCoefficient * airDensity * pew.velocity * pew.velocity * area;
+        
+        // Convert drag force to acceleration: f = m * a, so a = f / m
+        double dragAcceleration = dragForce / projectileMass;
+        
+        // Get direction of travel using atan2
+        double travelAngle = atan2(pew.dx, pew.dy);
+        
+        // Convert drag acceleration to horizontal/vertical components
+        // Drag opposes velocity direction
+        double ddx = -dragAcceleration * sin(travelAngle);
+        double ddy = -dragAcceleration * cos(travelAngle);
+        
+        // Get gravity based on current altitude
+        double gravity = getGravity(pew.altitude);
+        
+        // Total accelerations
+        double totalAccelerationX = ddx;
+        double totalAccelerationY = gravity + ddy;
+        
+        // Update position using distance formula with total accelerations
+        pew.distance += pew.dx * deltaTime + 0.5 * totalAccelerationX * deltaTime * deltaTime;
+        pew.altitude += pew.dy * deltaTime + 0.5 * totalAccelerationY * deltaTime * deltaTime;
+        
+        // Update velocity using kinematics equation with total accelerations
+        pew.dx += totalAccelerationX * deltaTime;
+        pew.dy += totalAccelerationY * deltaTime;
+        
         pew.time += deltaTime;
-        pew.printStatus();
+        pew.hangTime = pew.time;
     }
+    
+    // Print final status
+    pew.printStatus();
 
     return 0;
 }
