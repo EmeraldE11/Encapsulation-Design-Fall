@@ -127,6 +127,35 @@ double getGravity(double altitude) {
     return gravityTable[i] + (gravityTable[i + 1] - gravityTable[i]) * t;
 }
 
+double airDensity(double altitude, double projectileMass)
+{
+   double m = altitude;
+   double kg = projectileMass;
+   
+   return kg / (m * m);
+}
+
+// f = dragForce, p = airDenstiy, v = velocity, a = area.
+double dragCoefficient(double f, double p, double v, double a)
+{
+   return 2 * f / p * (v * v) * a;
+}
+
+// x = Projectile's x position, y = Projectile's y position, t = time
+void hitTheGround(double prevX, double prevY, double prevT, double x, double y, double t)
+{
+    // After updating, check if we hit the ground
+    if (y <= 0.0)
+    {
+       // Linear interpolation to find where y = 0 exactly
+       double f = prevY / (prevY - y);  // fraction between prev and current
+       double xImpact = prevX + f * (x - prevX);
+       double tImpact = prevT + f * (t - prevT);
+
+       cout << "Distance: " << xImpact << "m" << "   Hang Time: " << tImpact << "s\n";
+    }
+}
+
 int main() {
     Howitzer pew;
 
