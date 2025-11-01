@@ -106,6 +106,21 @@ const double gravityTable[GRAVITY_TABLE_SIZE] = {
     -9.807, -9.804, -9.801, -9.797, -9.794, -9.791, -9.788, -9.785
 };
 
+// Air density lookup table: altitude (m) -> density (kg/m^3)
+const int DENSITY_TABLE_SIZE = 20;
+const double densityAltitudeTable[DENSITY_TABLE_SIZE] = {
+    0.0, 1000.0, 2000.0, 3000.0, 4000.0, 5000.0, 6000.0, 7000.0,
+    8000.0, 9000.0, 10000.0, 15000.0, 20000.0, 25000.0, 30000.0,
+    40000.0, 50000.0, 60000.0, 70000.0, 80000.0
+};
+const double densityTable[DENSITY_TABLE_SIZE] = {
+    1.2250000, 1.1120000, 1.0070000, 0.9093000, 0.8194000,
+    0.7364000, 0.6601000, 0.5900000, 0.5258000, 0.4671000,
+    0.4135000, 0.1948000, 0.0889100, 0.0400800, 0.0184100,
+    0.0039960, 0.0010270, 0.0003097, 0.0000828, 0.0000185
+};
+
+
 // Linear interpolation for gravity based on altitude
 double getGravity(double altitude) {
     // Clamp altitude to table range
@@ -127,12 +142,25 @@ double getGravity(double altitude) {
     return gravityTable[i] + (gravityTable[i + 1] - gravityTable[i]) * t;
 }
 
-double airDensity(double altitude, double projectileMass)
+double airDensity(double altitude)
 {
-   double m = altitude;
-   double kg = projectileMass;
-   
-   return kg / (m * m);
+   // Clamp altitude to table range
+   if (altitude <= densityAltitudeTable[0]) {
+       return densityTable[0];
+   }
+   if (altitude >= densityAltitudeTable[DENSITY_TABLE_SIZE - 1]) {
+       return densityTable[DENSITY_TABLE_SIZE - 1];
+   }
+
+   // Find the two altitudes to interpolate between
+   int i = 0;
+   while (i < DENSITY_TABLE_SIZE - 1 && altitude >= densityAltitudeTable[i + 1]) {
+       i++;
+   }
+
+   // Linear interpolation: my = ay + (zy - ay) * t
+   double t = (altitude - densityAltitudeTable[i]) / (densityAltitudeTable[i + 1] - densityAltitudeTable[i]);
+   return densityTable[i] + (densityTable[i + 1] - densityTable[i]) * t;
 }
 
 // f = dragForce, p = airDenstiy, v = velocity, a = area.
@@ -169,7 +197,6 @@ int main() {
     
     // Drag constants
     const double dragCoefficient = 0.3;
-    const double airDensity = 0.6;
     const double projectileDiameter = 0.15489;  // 154.89 mm in meters
     const double projectileMass = 46.7;         // kg (typical artillery shell mass)
     const double area = PI * (projectileDiameter / 2.0) * (projectileDiameter / 2.0);
@@ -178,9 +205,12 @@ int main() {
     while (pew.altitude >= 0.0) {
         // Calculate current velocity magnitude
         pew.velocity = sqrt(pew.dx * pew.dx + pew.dy * pew.dy);
+
+        // Get air density based on current altitude
+        double density = airDensity(pew.altitude);
         
         // Calculate drag force: d = 0.5 * c * p * v * v * a
-        double dragForce = 0.5 * dragCoefficient * airDensity * pew.velocity * pew.velocity * area;
+        double dragForce = 0.5 * dragCoefficient * density * pew.velocity * pew.velocity * area;
         
         // Convert drag force to acceleration: f = m * a, so a = f / m
         double dragAcceleration = dragForce / projectileMass;
@@ -219,9 +249,5 @@ int main() {
 }
 
 /* 
-Now introduce gravity at a constant - 9.8m / s2.This will require you to update the velocity 
-based on the acceleration due to gravity. First, update the position using the distance formula.
-Next, after the position is updated, update the velocity. Use the distance formula and the kinematics 
-equation to compute the new position(with(x, y) instead of s) and velocity(with(dx, dy) instead of v).
-Notice how our horizontal distance is unaffected, but our altitude has decreased significantly.
+step 7 and 8 are the only ones left.
 */
