@@ -120,6 +120,19 @@ const double densityTable[DENSITY_TABLE_SIZE] = {
     0.0039960, 0.0010270, 0.0003097, 0.0000828, 0.0000185
 };
 
+// Speed of sound (sonic - short for supersonic) lookup table: altitude (m) -> speed of sound (m/s)
+const int SONIC_TABLE_SIZE = 20;
+const double sonicAltitudeTable[SONIC_TABLE_SIZE] = {
+    0.0, 1000.0, 2000.0, 3000.0, 4000.0, 5000.0, 6000.0, 7000.0,
+    8000.0, 9000.0, 10000.0, 15000.0, 20000.0, 25000.0, 30000.0,
+    40000.0, 50000.0, 60000.0, 70000.0, 80000.0
+};
+const double sonicTable[SONIC_TABLE_SIZE] = {
+    340.0, 336.0, 332.0, 328.0, 324.0, 320.0, 316.0, 312.0,
+    308.0, 303.0, 299.0, 295.0, 295.0, 295.0, 305.0,
+    324.0, 337.0, 319.0, 289.0, 269.0
+};
+
 
 // Linear interpolation for gravity based on altitude
 double getGravity(double altitude) {
@@ -161,6 +174,27 @@ double airDensity(double altitude)
    // Linear interpolation: my = ay + (zy - ay) * t
    double t = (altitude - densityAltitudeTable[i]) / (densityAltitudeTable[i + 1] - densityAltitudeTable[i]);
    return densityTable[i] + (densityTable[i + 1] - densityTable[i]) * t;
+}
+
+double speedOfSound(double altitude)
+{
+    // Clamp altitude to table range
+    if (altitude <= sonicAltitudeTable[0]) {
+        return sonicTable[0];
+    }
+    if (altitude >= sonicAltitudeTable[SONIC_TABLE_SIZE - 1]) {
+        return sonicTable[SONIC_TABLE_SIZE - 1];
+    }
+
+    // Find the two altitudes to interpolate between
+    int i = 0;
+    while (i < SONIC_TABLE_SIZE - 1 && altitude >= sonicAltitudeTable[i + 1]) {
+        i++;
+    }
+
+    // Linear interpolation: my = ay + (zy - ay) * t
+    double t = (altitude - sonicAltitudeTable[i]) / (sonicAltitudeTable[i + 1] - sonicAltitudeTable[i]);
+    return sonicTable[i] + (sonicTable[i + 1] - sonicTable[i]) * t;
 }
 
 // f = dragForce, p = airDenstiy, v = velocity, a = area.
@@ -211,7 +245,7 @@ int main() {
         
         // Calculate drag force: d = 0.5 * c * p * v * v * a
         double dragForce = 0.5 * dragCoefficient * density * pew.velocity * pew.velocity * area;
-        
+
         // Convert drag force to acceleration: f = m * a, so a = f / m
         double dragAcceleration = dragForce / projectileMass;
         
