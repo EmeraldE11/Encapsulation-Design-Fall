@@ -8,6 +8,7 @@
  * 4. What was the hardest part? Be as specific as possible.
  *      The hardest part was figuring out how to write the delete functions and get the results we wanted in the tests
  *      The hardest part for me was understanding how memory is assigned, where it is, and how it's treated. - Noah
+ *      The hardest part was understanding how to properly delete the arrays and floats. As well as how memory is assigned through pointers. Overall memory allocation. - Roberto
  * 5. How long did it take for you to complete the assignment?
  *      -total time in hours: 2 hrs
  **************************************************************/
