@@ -16,9 +16,18 @@ using namespace std;
 /**************************************
  * COUNT - ARRAY
  **************************************/
-int countArray(string text, char letter)
+int countArray(char* text, char letter)
 {
-    return 0;
+    double len = strlen(text);
+    int counter = 0;
+    
+    for(int i = 0; i <= len; i++)
+    {
+        if(text[i] == letter)
+            counter++;
+    }
+    
+    return counter;
 }
 
 /**************************************
