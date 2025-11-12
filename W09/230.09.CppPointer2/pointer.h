@@ -8,8 +8,10 @@
  * 4. What was the hardest part? Be as specific as possible.
  *      -a paragraph or two about how the assignment went for you-
  *       Roberto- The hardest part was understanding how to properly use the pointer notation and how to properly traverse the string.
+ *       Noah - Same as Roberto, I had trouble understanding when the pointer was pointing to a value and when it was pointing to a memory address.
  * 5. How long did it take for you to complete the assignment?
  *      -total time in hours: reading the assignment, submitting, etc.
+ *       Noah - 20 mins
  **************************************************************/
 #include <iostream>
 using namespace std;
@@ -48,3 +50,4 @@ int countPointer(char* text, char letter)
     
     return counter;
 }
+
