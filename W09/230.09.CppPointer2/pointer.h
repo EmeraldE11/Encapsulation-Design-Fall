@@ -7,6 +7,7 @@
  *      Traverse a string using pointer notation
  * 4. What was the hardest part? Be as specific as possible.
  *      -a paragraph or two about how the assignment went for you-
+ *       Roberto- The hardest part was understanding how to properly use the pointer notation and how to properly traverse the string.
  * 5. How long did it take for you to complete the assignment?
  *      -total time in hours: reading the assignment, submitting, etc.
  **************************************************************/
@@ -33,7 +34,17 @@ int countArray(char* text, char letter)
 /**************************************
  * COUNT - POINTER
  **************************************/
-int countPointer(string text, char letter)
+int countPointer(char* text, char letter)
 {
-    return 0;
+    int counter = 0;
+    char* p = text;
+    
+    while (*p != '\0')
+    {
+        if (*p == letter)
+            counter++;
+        p++;
+    }
+    
+    return counter;
 }
