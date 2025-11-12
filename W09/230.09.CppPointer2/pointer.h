@@ -9,9 +9,11 @@
  *      -a paragraph or two about how the assignment went for you-
  *       Roberto- The hardest part was understanding how to properly use the pointer notation and how to properly traverse the string.
  *       Noah - Same as Roberto, I had trouble understanding when the pointer was pointing to a value and when it was pointing to a memory address.
+ *       Spencer - The hardest part was figuring out to include a pointer in the perameters of the function to allow the char string, which had a predetermined  size, that was being passed through to be utilized in the function.
  * 5. How long did it take for you to complete the assignment?
  *      -total time in hours: reading the assignment, submitting, etc.
  *       Noah - 20 mins
+ *       Spencer - 15 mins
  **************************************************************/
 #include <iostream>
 using namespace std;
