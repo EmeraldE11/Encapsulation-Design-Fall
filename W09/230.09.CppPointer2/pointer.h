@@ -1,6 +1,6 @@
 /*************************************************************
  * 1. Name:
- *      -your name-
+ *      Noah McCarthy, Roberto Sanchez, Spencer Palmer
  * 2. Assignment Name:
  *      Practice 09: Pointer Arithmetic
  * 3. Assignment Description:
