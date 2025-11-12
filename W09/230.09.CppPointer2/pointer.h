@@ -10,13 +10,21 @@
  * 5. How long did it take for you to complete the assignment?
  *      -total time in hours: reading the assignment, submitting, etc.
  **************************************************************/
-
+#include <iostream>
+using namespace std;
 
 /**************************************
  * COUNT - ARRAY
  **************************************/
-
+int countArray(string text, char letter)
+{
+    return 0;
+}
 
 /**************************************
  * COUNT - POINTER
  **************************************/
+int countPointer(string text, char letter)
+{
+    return 0;
+}
