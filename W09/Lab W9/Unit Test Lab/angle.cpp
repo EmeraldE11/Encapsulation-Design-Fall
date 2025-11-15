@@ -17,13 +17,15 @@ using namespace std;
  ************************************/
 double Angle::normalize(double radians) const
 {
-    // If radians are greater than 2pi subtract 2pi
-    while (radians > 2 * M_PI)
-        radians -= 2 * M_PI;
+   const double twoPi = 2.0 * M_PI;
 
-    // If radians are less than 0 add 2pi
-    while (radians < 0)
-        radians += 2 * M_PI;
+   // If radians are greater than or equal to 2pi subtract 2pi
+   while (radians >= twoPi)
+       radians -= twoPi;
+
+   // If radians are less than 0 add 2pi
+   while (radians < 0.0)
+       radians += twoPi;
 
     return radians;
 }

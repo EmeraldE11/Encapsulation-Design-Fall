@@ -47,6 +47,8 @@ public:
 	void addDX(double dx) { this->dx += dx; }
 	void addDY(double dy) { this->dy += dy; }
 	void add(const Acceleration& acceleration, double time);
+	void reverse();
+	void addV(const Velocity& rhs);
 
 private:
 	double dx;           // horizontal velocity

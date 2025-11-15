@@ -11,7 +11,9 @@
 #include "velocity.h"
 #include "acceleration.h"
 
- /******************************************
+double Position::metersFromPixels = 1.0;
+
+/******************************************
   * POINT : CONSTRUCTOR WITH X,Y
   * Initialize the point to the passed position
   *****************************************/

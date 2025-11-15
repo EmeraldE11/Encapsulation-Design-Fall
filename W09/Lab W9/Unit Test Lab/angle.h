@@ -30,20 +30,40 @@ public:
     friend TestLander;
 
     // Constructors
-    Angle() : radians(0.0) {}
-    Angle(const Angle& rhs) : radians(rhs.radians) {}
-    Angle(double degrees) : radians(M_PI) {}
+   Angle() : radians(0.0) {}
+   Angle(const Angle& rhs) : radians(rhs.radians) {}
+   Angle(double degrees) : radians(0.0) { setDegrees(degrees); }
 
     // Getters
-    double getDegrees() const
-    {
-        return radians * 180 / M_PI; // Converts radians into degrees
-    }
+   double getDegrees() const
+   {
+       return radians * 180.0 / M_PI; // Converts radians into degrees
+   }
 
-    double getRadians() const
-    {
-        return radians; // Gets the value from the radians variable
-    }
+   double getRadians() const
+   {
+       return radians; // Gets the value from the radians variable
+   }
+
+   double getDx() const
+   {
+       return sin(radians);
+   }
+
+   double getDy() const
+   {
+       return cos(radians);
+   }
+
+   bool isRight() const
+   {
+       return getDx() >= 0.0;
+   }
+
+   bool isLeft() const
+   {
+       return getDx() <= 0.0;
+   }
 
     // Setters
     void setDegrees(double degrees)
@@ -76,10 +96,21 @@ public:
         radians = M_PI + M_PI_2; // set radians to reflect 270 degrees
     }
 
-    void reverse()
-    {
-        radians = M_PI_2 + M_PI;
-    }
+   void reverse()
+   {
+       radians = normalize(radians + M_PI);
+   }
+
+   void setDxDy(double dx, double dy)
+   {
+       if (dx == 0.0 && dy == 0.0)
+       {
+           radians = 0.0;
+           return;
+       }
+
+       radians = normalize(atan2(dx, dy));
+   }
 
     // Add to radians
     Angle& add(double delta)

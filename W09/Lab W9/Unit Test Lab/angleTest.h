@@ -53,6 +53,26 @@ public:
         add_positiveLap();
         add_negativeLap();
 
+        // Ticket 3: Angle Components
+        getDx_up();
+        getDx_right();
+        getDx_left();
+        getDx_diagonal();
+        getDy_up();
+        getDy_right();
+        getDy_left();
+        getDy_diagonal();
+        isRight_up();
+        isRight_left();
+        isLeft_right();
+        isLeft_left();
+        setDxDy_up();
+        setDxDy_right();
+        setDxDy_left();
+        setDxDy_down();
+        setDxDy_diagonal();
+        setDxDy_zero();
+
         report("Angle");
     }
 
@@ -524,5 +544,214 @@ private:
         assertEquals(r, M_PI + M_PI_2);
         assertEquals(a.radians, M_PI + M_PI_2);
     }  // teardown
+
+    /*****************************************************************
+     *****************************************************************
+     * COMPONENTS
+     *****************************************************************
+     *****************************************************************/
+
+     /*********************************************
+      * name:    GET DX UP
+      *********************************************/
+    void getDx_up()
+    {  // setup
+        Angle a;
+        a.radians = 0.0;
+        double dx = -99.9;
+        // exercise
+        dx = a.getDx();
+        // verify
+        assertEquals(dx, 0.0);
+        assertEquals(a.radians, 0.0);
+    }
+
+    void getDx_right()
+    {  // setup
+        Angle a;
+        a.radians = M_PI_2;
+        double dx = -99.9;
+        // exercise
+        dx = a.getDx();
+        // verify
+        assertEquals(dx, 1.0);
+        assertEquals(a.radians, M_PI_2);
+    }
+
+    void getDx_left()
+    {  // setup
+        Angle a;
+        a.radians = M_PI + M_PI_2;
+        double dx = -99.9;
+        // exercise
+        dx = a.getDx();
+        // verify
+        assertEquals(dx, -1.0);
+        assertEquals(a.radians, M_PI + M_PI_2);
+    }
+
+    void getDx_diagonal()
+    {  // setup
+        Angle a;
+        a.radians = M_PI / 4.0;
+        double dx = -99.9;
+        // exercise
+        dx = a.getDx();
+        // verify
+        assertEquals(dx, 0.7071);
+        assertEquals(a.radians, M_PI / 4.0);
+    }
+
+    void getDy_up()
+    {  // setup
+        Angle a;
+        a.radians = 0.0;
+        double dy = -99.9;
+        // exercise
+        dy = a.getDy();
+        // verify
+        assertEquals(dy, 1.0);
+        assertEquals(a.radians, 0.0);
+    }
+
+    void getDy_right()
+    {  // setup
+        Angle a;
+        a.radians = M_PI_2;
+        double dy = -99.9;
+        // exercise
+        dy = a.getDy();
+        // verify
+        assertEquals(dy, 0.0);
+        assertEquals(a.radians, M_PI_2);
+    }
+
+    void getDy_left()
+    {  // setup
+        Angle a;
+        a.radians = M_PI + M_PI_2;
+        double dy = -99.9;
+        // exercise
+        dy = a.getDy();
+        // verify
+        assertEquals(dy, 0.0);
+        assertEquals(a.radians, M_PI + M_PI_2);
+    }
+
+    void getDy_diagonal()
+    {  // setup
+        Angle a;
+        a.radians = M_PI + M_PI / 4.0;
+        double dy = -99.9;
+        // exercise
+        dy = a.getDy();
+        // verify
+        assertEquals(dy, -0.7071);
+        assertEquals(a.radians, M_PI + M_PI / 4.0);
+    }
+
+    void isRight_up()
+    {  // setup
+        Angle a;
+        a.radians = 0.0;
+        bool result = false;
+        // exercise
+        result = a.isRight();
+        // verify
+        assertUnit(result == true);
+    }
+
+    void isRight_left()
+    {  // setup
+        Angle a;
+        a.radians = M_PI + M_PI_2;
+        bool result = true;
+        // exercise
+        result = a.isRight();
+        // verify
+        assertUnit(result == false);
+    }
+
+    void isLeft_right()
+    {  // setup
+        Angle a;
+        a.radians = M_PI_2;
+        bool result = false;
+        // exercise
+        result = a.isLeft();
+        // verify
+        assertUnit(result == false);
+    }
+
+    void isLeft_left()
+    {  // setup
+        Angle a;
+        a.radians = M_PI + M_PI_2;
+        bool result = false;
+        // exercise
+        result = a.isLeft();
+        // verify
+        assertUnit(result == true);
+    }
+
+    void setDxDy_up()
+    {  // setup
+        Angle a;
+        a.radians = -99.9;
+        // exercise
+        a.setDxDy(0.0, 5.0);
+        // verify
+        assertEquals(a.radians, 0.0);
+    }
+
+    void setDxDy_right()
+    {  // setup
+        Angle a;
+        a.radians = -99.9;
+        // exercise
+        a.setDxDy(3.3, 0.0);
+        // verify
+        assertEquals(a.radians, M_PI_2);
+    }
+
+    void setDxDy_left()
+    {  // setup
+        Angle a;
+        a.radians = -99.9;
+        // exercise
+        a.setDxDy(-4.0, 0.0);
+        // verify
+        assertEquals(a.radians, M_PI + M_PI_2);
+    }
+
+    void setDxDy_down()
+    {  // setup
+        Angle a;
+        a.radians = -99.9;
+        // exercise
+        a.setDxDy(0.0, -2.0);
+        // verify
+        assertEquals(a.radians, M_PI);
+    }
+
+    void setDxDy_diagonal()
+    {  // setup
+        Angle a;
+        a.radians = -99.9;
+        // exercise
+        a.setDxDy(5.0, 5.0);
+        // verify
+        assertEquals(a.radians, M_PI / 4.0);
+    }
+
+    void setDxDy_zero()
+    {  // setup
+        Angle a;
+        a.radians = -99.9;
+        // exercise
+        a.setDxDy(0.0, 0.0);
+        // verify
+        assertEquals(a.radians, 0.0);
+    }
 
 };

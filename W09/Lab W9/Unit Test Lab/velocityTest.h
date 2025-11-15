@@ -49,6 +49,17 @@ public:
         add_moving4Seconds();
         add_moving1Second();
 
+        // Ticket 3: Reverse and Add
+        reverse_zero();
+        reverse_positive();
+        reverse_negative();
+        reverse_mixed();
+        addV_zeroZero();
+        addV_valueZero();
+        addV_zeroValue();
+        addV_opposites();
+        addV_values();
+
         report("Velocity");
     }
 
@@ -631,6 +642,113 @@ private:
         assertEquals(a.ddy, 5.0);
         assertEquals(t, 4.0);
     }  // teardown
+
+    /*****************************************************************
+     *****************************************************************
+     * REVERSE AND ADDV
+     *****************************************************************
+     *****************************************************************/
+
+    void reverse_zero()
+    {  // setup
+        Velocity v;
+        // exercise
+        v.reverse();
+        // verify
+        assertEquals(v.dx, 0.0);
+        assertEquals(v.dy, 0.0);
+    }
+
+    void reverse_positive()
+    {  // setup
+        Velocity v;
+        v.dx = 5.0;
+        v.dy = 3.0;
+        // exercise
+        v.reverse();
+        // verify
+        assertEquals(v.dx, -5.0);
+        assertEquals(v.dy, -3.0);
+    }
+
+    void reverse_negative()
+    {  // setup
+        Velocity v;
+        v.dx = -7.0;
+        v.dy = -2.0;
+        // exercise
+        v.reverse();
+        // verify
+        assertEquals(v.dx, 7.0);
+        assertEquals(v.dy, 2.0);
+    }
+
+    void reverse_mixed()
+    {  // setup
+        Velocity v;
+        v.dx = 4.0;
+        v.dy = -6.0;
+        // exercise
+        v.reverse();
+        // verify
+        assertEquals(v.dx, -4.0);
+        assertEquals(v.dy, 6.0);
+    }
+
+    void addV_zeroZero()
+    {  // setup
+        Velocity lhs;
+        Velocity rhs;
+        // exercise
+        lhs.addV(rhs);
+        // verify
+        assertEquals(lhs.dx, 0.0);
+        assertEquals(lhs.dy, 0.0);
+    }
+
+    void addV_valueZero()
+    {  // setup
+        Velocity lhs(2.0, 3.0);
+        Velocity rhs;
+        // exercise
+        lhs.addV(rhs);
+        // verify
+        assertEquals(lhs.dx, 2.0);
+        assertEquals(lhs.dy, 3.0);
+    }
+
+    void addV_zeroValue()
+    {  // setup
+        Velocity lhs;
+        Velocity rhs(-4.0, 6.0);
+        // exercise
+        lhs.addV(rhs);
+        // verify
+        assertEquals(lhs.dx, -4.0);
+        assertEquals(lhs.dy, 6.0);
+    }
+
+    void addV_opposites()
+    {  // setup
+        Velocity lhs(5.0, -3.0);
+        Velocity rhs(-5.0, 3.0);
+        // exercise
+        lhs.addV(rhs);
+        // verify
+        assertEquals(lhs.dx, 0.0);
+        assertEquals(lhs.dy, 0.0);
+    }
+
+    void addV_values()
+    {  // setup
+        Velocity lhs(1.5, 2.5);
+        Velocity rhs(3.5, -4.5);
+        // exercise
+        lhs.addV(rhs);
+        // verify
+        assertEquals(lhs.dx, 5.0);
+        assertEquals(lhs.dy, -2.0);
+    }
 
 };
 

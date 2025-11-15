@@ -31,8 +31,12 @@ public:
     Position(double x, double y);
 
     // getters
-    double getX() const { return x; }
-    double getY() const { return y; }
+    double getMetersX() const { return x; }
+    double getMetersY() const { return y; }
+    double getX() const { return getMetersX(); }  // compatibility
+    double getY() const { return getMetersY(); }
+    double getPixelsX() const { return x / metersFromPixels; }
+    double getPixelsY() const { return y / metersFromPixels; }
     bool operator == (const Position& rhs) const
     {
         return (x == rhs.x && y == rhs.y);
@@ -43,11 +47,20 @@ public:
     }
 
     // setters
-    void setX(double x) { this->x = x; }
-    void setY(double y) { this->y = y; }
-    void addX(double x) { this->x += x; }
-    void addY(double y) { this->y += y; }
+    void setMetersX(double x) { this->x = x; }
+    void setMetersY(double y) { this->y = y; }
+    void setX(double x) { setMetersX(x); }  // compatibility
+    void setY(double y) { setMetersY(y); }
+    void setPixelsX(double pixelX) { this->x = pixelX * metersFromPixels; }
+    void setPixelsY(double pixelY) { this->y = pixelY * metersFromPixels; }
+    void addMetersX(double delta) { this->x += delta; }
+    void addMetersY(double delta) { this->y += delta; }
+    void addX(double delta) { addMetersX(delta); }  // compatibility
+    void addY(double delta) { addMetersY(delta); }
+    void addPixelsX(double deltaPixels) { this->x += deltaPixels * metersFromPixels; }
+    void addPixelsY(double deltaPixels) { this->y += deltaPixels * metersFromPixels; }
     void add(const Acceleration& a, const Velocity& v, double t);
+    void add(const Acceleration& a, const Velocity& v) { add(a, v, 1.0); }
     Position& operator = (const Position& rhs)
     {
         x = rhs.x;
@@ -55,8 +68,12 @@ public:
         return *this;
     }
 
+    static void setZoom(double metersPerPixel) { metersFromPixels = metersPerPixel; }
+    static double getZoom() { return metersFromPixels; }
+
 private:
     double x;           // horizontal position
     double y;           // vertical position
+    static double metersFromPixels;
 };
 

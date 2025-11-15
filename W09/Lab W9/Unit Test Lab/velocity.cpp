@@ -42,3 +42,23 @@ void Velocity::set(const Angle& angle, double magnitude)
 	dx = magnitude * sin(radians);
 	dy = magnitude * cos(radians);
 }
+
+/*********************************************
+ * VELOCITY : REVERSE
+ *  reverse direction
+ *********************************************/
+void Velocity::reverse()
+{
+	dx = -dx;
+	dy = -dy;
+}
+
+/*********************************************
+ * VELOCITY : ADDV
+ *  v = v + rhs
+ *********************************************/
+void Velocity::addV(const Velocity& rhs)
+{
+	dx += rhs.dx;
+	dy += rhs.dy;
+}

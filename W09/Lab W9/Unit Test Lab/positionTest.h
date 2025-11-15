@@ -14,6 +14,30 @@
 #include "velocity.h"
 #include "acceleration.h"
 
+class Velocity0 : public Velocity
+{
+public:
+    Velocity0() : Velocity(0.0, 0.0) {}
+};
+
+class Velocity54 : public Velocity
+{
+public:
+    Velocity54() : Velocity(5.0, 4.0) {}
+};
+
+class Acceleration0 : public Acceleration
+{
+public:
+    Acceleration0() : Acceleration(0.0, 0.0) {}
+};
+
+class Acceleration23 : public Acceleration
+{
+public:
+    Acceleration23() : Acceleration(2.0, 3.0) {}
+};
+
  /*********************************************
   * TEST POSITION
   * Unit tests for Position
@@ -23,6 +47,7 @@ class TestPosition : public UnitTest
 public:
     void run()
     {
+        Position::setZoom(1.0);
         // Ticket 3: Without Add
         constructor_default();
         constructor_nonDefault();
@@ -49,6 +74,34 @@ public:
         add_accelerating4Seconds();
         add_1Second();
         add_4Seconds();
+
+        // Ticket 5: Zoom and Pixels
+        zoom_default();
+        zoom_change();
+        getPixelsX_zero();
+        getPixelsX_value();
+        getPixelsY_zero();
+        getPixelsY_value();
+        setPixelsX_zero();
+        setPixelsX_value();
+        setPixelsY_zero();
+        setPixelsY_value();
+        pixels_roundTrip();
+        zoom_sharedAcrossInstances();
+
+        // Ticket 6: Additional Adds
+        addMetersX_zero();
+        addMetersX_value();
+        addMetersY_zero();
+        addMetersY_value();
+        addPixelsX_zero();
+        addPixelsX_value();
+        addPixelsY_zero();
+        addPixelsY_value();
+        add_helpers_stationary();
+        add_helpers_velocityOnly();
+        add_helpers_accelerationOnly();
+        add_helpers_timeTwo();
 
         report("Position");
     }
@@ -665,5 +718,238 @@ private:
         assertEquals(v.dy, 5.0);
         assertEquals(t, 4.0);
     }  // teardown
+
+    /*****************************************************************
+     *****************************************************************
+     * ZOOM AND PIXELS
+     *****************************************************************
+     *****************************************************************/
+
+    void zoom_default()
+    {
+        Position::setZoom(1.0);
+        assertEquals(Position::getZoom(), 1.0);
+    }
+
+    void zoom_change()
+    {
+        Position::setZoom(2.5);
+        assertEquals(Position::getZoom(), 2.5);
+        Position::setZoom(1.0);
+    }
+
+    void getPixelsX_zero()
+    {
+        Position::setZoom(2.0);
+        Position pos;
+        pos.setMetersX(0.0);
+        assertEquals(pos.getPixelsX(), 0.0);
+        Position::setZoom(1.0);
+    }
+
+    void getPixelsX_value()
+    {
+        Position::setZoom(2.0);
+        Position pos;
+        pos.setMetersX(10.0);
+        assertEquals(pos.getPixelsX(), 5.0);
+        Position::setZoom(1.0);
+    }
+
+    void getPixelsY_zero()
+    {
+        Position::setZoom(0.5);
+        Position pos;
+        pos.setMetersY(0.0);
+        assertEquals(pos.getPixelsY(), 0.0);
+        Position::setZoom(1.0);
+    }
+
+    void getPixelsY_value()
+    {
+        Position::setZoom(0.5);
+        Position pos;
+        pos.setMetersY(10.0);
+        assertEquals(pos.getPixelsY(), 20.0);
+        Position::setZoom(1.0);
+    }
+
+    void setPixelsX_zero()
+    {
+        Position::setZoom(3.0);
+        Position pos;
+        pos.setPixelsX(0.0);
+        assertEquals(pos.getMetersX(), 0.0);
+        Position::setZoom(1.0);
+    }
+
+    void setPixelsX_value()
+    {
+        Position::setZoom(3.0);
+        Position pos;
+        pos.setPixelsX(4.0);
+        assertEquals(pos.getMetersX(), 12.0);
+        Position::setZoom(1.0);
+    }
+
+    void setPixelsY_zero()
+    {
+        Position::setZoom(4.0);
+        Position pos;
+        pos.setPixelsY(0.0);
+        assertEquals(pos.getMetersY(), 0.0);
+        Position::setZoom(1.0);
+    }
+
+    void setPixelsY_value()
+    {
+        Position::setZoom(4.0);
+        Position pos;
+        pos.setPixelsY(2.5);
+        assertEquals(pos.getMetersY(), 10.0);
+        Position::setZoom(1.0);
+    }
+
+    void pixels_roundTrip()
+    {
+        Position::setZoom(2.0);
+        Position pos;
+        pos.setPixelsX(3.0);
+        pos.setPixelsY(4.0);
+        assertEquals(pos.getPixelsX(), 3.0);
+        assertEquals(pos.getPixelsY(), 4.0);
+        Position::setZoom(1.0);
+    }
+
+    void zoom_sharedAcrossInstances()
+    {
+        Position::setZoom(5.0);
+        Position a;
+        Position b;
+        a.setPixelsX(2.0);
+        b.setMetersX(25.0);
+        assertEquals(a.getMetersX(), 10.0);
+        assertEquals(b.getPixelsX(), 5.0);
+        Position::setZoom(1.0);
+    }
+
+    /*****************************************************************
+     *****************************************************************
+     * ADDITIONAL ADDS
+     *****************************************************************
+     *****************************************************************/
+
+    void addMetersX_zero()
+    {
+        Position pos;
+        pos.x = 5.0;
+        pos.addMetersX(0.0);
+        assertEquals(pos.x, 5.0);
+    }
+
+    void addMetersX_value()
+    {
+        Position pos;
+        pos.x = 5.0;
+        pos.addMetersX(3.0);
+        assertEquals(pos.x, 8.0);
+    }
+
+    void addMetersY_zero()
+    {
+        Position pos;
+        pos.y = -4.0;
+        pos.addMetersY(0.0);
+        assertEquals(pos.y, -4.0);
+    }
+
+    void addMetersY_value()
+    {
+        Position pos;
+        pos.y = -4.0;
+        pos.addMetersY(2.5);
+        assertEquals(pos.y, -1.5);
+    }
+
+    void addPixelsX_zero()
+    {
+        Position::setZoom(2.0);
+        Position pos;
+        pos.x = 1.0;
+        pos.addPixelsX(0.0);
+        assertEquals(pos.x, 1.0);
+        Position::setZoom(1.0);
+    }
+
+    void addPixelsX_value()
+    {
+        Position::setZoom(2.0);
+        Position pos;
+        pos.x = 1.0;
+        pos.addPixelsX(3.0);
+        assertEquals(pos.x, 7.0);
+        Position::setZoom(1.0);
+    }
+
+    void addPixelsY_zero()
+    {
+        Position::setZoom(0.5);
+        Position pos;
+        pos.y = 2.0;
+        pos.addPixelsY(0.0);
+        assertEquals(pos.y, 2.0);
+        Position::setZoom(1.0);
+    }
+
+    void addPixelsY_value()
+    {
+        Position::setZoom(0.5);
+        Position pos;
+        pos.y = 2.0;
+        pos.addPixelsY(4.0);
+        assertEquals(pos.y, 4.0);
+        Position::setZoom(1.0);
+    }
+
+    void add_helpers_stationary()
+    {
+        Position::setZoom(1.0);
+        Position pos(1.0, 2.0);
+        Acceleration0 a;
+        Velocity0 v;
+        pos.add(a, v);
+        assertEquals(pos.x, 1.0);
+        assertEquals(pos.y, 2.0);
+    }
+
+    void add_helpers_velocityOnly()
+    {
+        Position pos(1.0, 2.0);
+        Acceleration0 a;
+        Velocity54 v;
+        pos.add(a, v);
+        assertEquals(pos.x, 6.0);
+        assertEquals(pos.y, 6.0);
+    }
+
+    void add_helpers_accelerationOnly()
+    {
+        Position pos(1.0, 2.0);
+        Acceleration23 a;
+        Velocity0 v;
+        pos.add(a, v);
+        assertEquals(pos.x, 2.0);
+        assertEquals(pos.y, 3.5);
+    }
+
+    void add_helpers_timeTwo()
+    {
+        Position pos(1.0, 2.0);
+        Acceleration23 a;
+        Velocity54 v;
+        pos.add(a, v, 2.0);
+        assertEquals(pos.x, 15.0);   // 1 + 5*2 + 0.5*2*(4)
+        assertEquals(pos.y, 16.0);   // 2 + 4*2 + 0.5*3*(4)
+    }
 
 };
