@@ -18,11 +18,11 @@
  // on Window's Visual Studio. If you have problems seeing the output window
  // and your team is exclusively on Visual Studio, you can safely remove
  // these two "#ifdef _WIN32" and the "#endif" below it.
-#ifdef _WIN32
+
 #include <windows.h>
 #include <iostream>
 using namespace std;
-#endif
+
 
 /************************************
  * TEST RUNNER
