@@ -1,14 +1,16 @@
 /*************************************************************
  * 1. Name:
- *      Roberto Sanchez
+ *      Roberto Sanchez, Noah McCarthy
  * 2. Assignment Name:
  *      Practice 10: Exceptions
  * 3. Assignment Description:
  *      Throwing and catching exceptions
  * 4. What was the hardest part? Be as specific as possible.
  *      Roberto - The hardest part was understanding how to properly implement the exceptions and how to properly catch them.
+ *      Noah - The hardest part was paying attention to what is being captured in a try/catch block and differentiating the different error types to implement them properly.
  * 5. How long did it take for you to complete the assignment?
  *      Roberto - 15 minutes
+ *      Noah - 10 minutes
  **************************************************************/
 
 #include <iostream>
