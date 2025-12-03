@@ -13,7 +13,7 @@
 #define TWO_PI 6.28318530718
 
 #include <math.h>    // for floor()
-#include <iostream>  // for cout
+#include <iostream>  // for cout, istream, ostream
 #include <cassert>   // for assert()
 using namespace std;
 
@@ -65,7 +65,47 @@ public:
         out.setf(ios::showpoint); // "showpoint" means always show the decimal point
         out.precision(1);         // Set the precision to 1 decimal place of accuracy.
 
-        out << getDegrees() << "degrees"; // display degrees
+        out << getDegrees(); // display degrees
+    }
+
+    // Assignment operator
+    Angle& operator=(const Angle& rhs)
+    {
+        if (this != &rhs)
+        {
+            radians = rhs.radians;
+        }
+        return *this;
+    }
+
+    // Prefix increment operator
+    Angle& operator++()
+    {
+        radians = normalize(radians + (M_PI / 180.0)); // add 1 degree
+        return *this;
+    }
+
+    // Postfix increment operator
+    Angle operator++(int)
+    {
+        Angle temp(*this);
+        radians = normalize(radians + (M_PI / 180.0)); // add 1 degree
+        return temp;
+    }
+
+    // Prefix decrement operator
+    Angle& operator--()
+    {
+        radians = normalize(radians - (M_PI / 180.0)); // subtract 1 degree
+        return *this;
+    }
+
+    // Postfix decrement operator
+    Angle operator--(int)
+    {
+        Angle temp(*this);
+        radians = normalize(radians - (M_PI / 180.0)); // subtract 1 degree
+        return temp;
     }
 
 private:
@@ -98,3 +138,57 @@ private:
 
     double radians;
 };
+
+/************************************
+ * NEGATIVE OPERATOR
+ * Returns a new Angle that is 180° from the original
+ ************************************/
+inline Angle operator-(const Angle& rhs)
+{
+    Angle result;
+    result.setRadians(rhs.getRadians() + M_PI);
+    return result;
+}
+
+/************************************
+ * EQUALS OPERATOR
+ * Compares two angles for equality
+ ************************************/
+inline bool operator==(const Angle& lhs, const Angle& rhs)
+{
+    return lhs.getRadians() == rhs.getRadians();
+}
+
+/************************************
+ * NOT-EQUALS OPERATOR
+ * Compares two angles for inequality
+ ************************************/
+inline bool operator!=(const Angle& lhs, const Angle& rhs)
+{
+    return !(lhs == rhs);
+}
+
+/************************************
+ * INSERTION OPERATOR
+ * Displays the angle in degrees
+ ************************************/
+inline ostream& operator<<(ostream& out, const Angle& rhs)
+{
+    rhs.display(out);
+    return out;
+}
+
+/************************************
+ * EXTRACTION OPERATOR
+ * Reads degrees from input and sets the angle
+ ************************************/
+inline istream& operator>>(istream& in, Angle& rhs)
+{
+    double degrees;
+    in >> degrees;
+    if (!in.fail())
+    {
+        rhs.setDegrees(degrees);
+    }
+    return in;
+}
