@@ -37,9 +37,13 @@ public:
 
 
    // advance the round forward until the next unit of time
-   void advance(double simulationTime) {}
+   void advance(double simulationTime);
 
+   // clear the flight path and reset the member variables
+   void reset();
 
+   // based on a provided position, simulator time, angle, and muzzle velocity, put the first element in the flight path
+   void fire(const Position& pos, double simulationTime, const Angle& angle, double muzzleVelocity);
 
 
 private:
