@@ -11,6 +11,7 @@
 
 #define _USE_MATH_DEFINES
 #define TWO_PI 6.28318530718
+#define PI_EIGHT (M_PI / 8.0)
 
 #include <math.h>    // for floor()
 #include <iostream>  // for cout, istream, ostream
@@ -25,6 +26,7 @@ class TestAngle;
 class Angle
 {
     friend TestAngle;
+    friend class TestAngleRadian;
 
 public:
     // Default constructor
@@ -199,7 +201,7 @@ public:
     AngleRadians() : Angle() {}
     AngleRadians(const Angle& rhs) : Angle(rhs) {}
 
-    void display(ostream& out) const
+    void display(ostream& out) const override
     {
         out.setf(ios::fixed);     // "fixed" means don't use scientific notation
         out.setf(ios::showpoint); // "showpoint" means always show the decimal point
@@ -208,14 +210,14 @@ public:
         out << getRadians(); // display degrees
     }
 
-    Angle operator++(int)
+    Angle operator++(int) override
     {
         AngleRadians temp(*this);
         setRadians(getRadians() + (M_PI / 8));
         return temp;
     }
 
-    Angle operator--(int)
+    Angle operator--(int) override
     {
         AngleRadians temp(*this);
         setRadians(getRadians() - (M_PI / 8));
