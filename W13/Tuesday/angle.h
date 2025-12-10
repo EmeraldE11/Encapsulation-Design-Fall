@@ -226,7 +226,7 @@ public:
     }
 
     // Prefix decrement operator
-    virtual Angle& operator--() override
+    Angle& operator--() override
     {
         setRadians(getRadians() - (M_PI / 8)); // subtract 1 radian
         return *this;
@@ -239,18 +239,4 @@ public:
         setRadians(getRadians() - (M_PI / 8));
         return temp;
     }
-   
-    Angle& operator--() override
-    {
-        setRadians(getRadians() - PI_EIGHT);
-        return *this;
-    }
-   
-    // Prefix increment operator
-    Angle& operator++() override
-    {
-        setRadians(getRadians() + PI_EIGHT);
-        return *this;
-    }
-
 };
