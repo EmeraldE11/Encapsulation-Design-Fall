@@ -59,7 +59,7 @@ public:
     }
 
     // Display
-    void display(ostream& out) const
+    virtual void display(ostream& out) const
     {
         out.setf(ios::fixed);     // "fixed" means don't use scientific notation
         out.setf(ios::showpoint); // "showpoint" means always show the decimal point
@@ -86,7 +86,7 @@ public:
     }
 
     // Postfix increment operator
-    Angle operator++(int)
+    virtual Angle operator++(int)
     {
         Angle temp(*this);
         radians = normalize(radians + (M_PI / 180.0)); // add 1 degree
@@ -101,7 +101,7 @@ public:
     }
 
     // Postfix decrement operator
-    Angle operator--(int)
+    virtual Angle operator--(int)
     {
         Angle temp(*this);
         radians = normalize(radians - (M_PI / 180.0)); // subtract 1 degree
@@ -192,3 +192,34 @@ inline istream& operator>>(istream& in, Angle& rhs)
     }
     return in;
 }
+
+class AngleRadians : public Angle {
+public:
+    // Default constructor
+    AngleRadians() : Angle() {}
+    AngleRadians(const Angle& rhs) : Angle(rhs) {}
+
+    void display(ostream& out) const
+    {
+        out.setf(ios::fixed);     // "fixed" means don't use scientific notation
+        out.setf(ios::showpoint); // "showpoint" means always show the decimal point
+        out.precision(1);         // Set the precision to 1 decimal place of accuracy.
+
+        out << getRadians(); // display degrees
+    }
+
+    Angle operator++(int)
+    {
+        AngleRadians temp(*this);
+        setRadians(getRadians() + (M_PI / 8));
+        return temp;
+    }
+
+    Angle operator--(int)
+    {
+        AngleRadians temp(*this);
+        setRadians(getRadians() - (M_PI / 8));
+        return temp;
+    }
+
+};
