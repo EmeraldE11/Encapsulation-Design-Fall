@@ -9,7 +9,8 @@
 
 #pragma once
 #include "position.h"
-
+#include "ground.h"
+#include "howitzer.h"
 
  /*********************************************
   * Simulation
@@ -18,6 +19,13 @@
 class Simulator
 {
 public:
-   Simulator(const Position & posUpperRight) {}
+   Simulator(const Position & posUpperRight);
 
+   // draw everything
+   void draw(ogstream& gout) const;
+
+private:
+   Ground ground;
+   Howitzer howitzer;
+   Position posUpperRight;
 };
