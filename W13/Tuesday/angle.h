@@ -81,7 +81,7 @@ public:
     }
 
     // Prefix increment operator
-    Angle& operator++()
+    virtual Angle& operator++()
     {
         radians = normalize(radians + (M_PI / 180.0)); // add 1 degree
         return *this;
@@ -96,7 +96,7 @@ public:
     }
 
     // Prefix decrement operator
-    Angle& operator--()
+    virtual Angle& operator--()
     {
         radians = normalize(radians - (M_PI / 180.0)); // subtract 1 degree
         return *this;
@@ -210,6 +210,14 @@ public:
         out << getRadians(); // display degrees
     }
 
+    // Prefix increment operator
+    Angle& operator++() override
+    {
+        setRadians(getRadians() + (M_PI / 8)); // add 1 radian
+        return *this;
+    }
+
+    // Postfix increment operator
     Angle operator++(int) override
     {
         AngleRadians temp(*this);
@@ -217,6 +225,14 @@ public:
         return temp;
     }
 
+    // Prefix decrement operator
+    virtual Angle& operator--() override
+    {
+        setRadians(getRadians() - (M_PI / 8)); // subtract 1 radian
+        return *this;
+    }
+
+    // Postfix decrement operator
     Angle operator--(int) override
     {
         AngleRadians temp(*this);
