@@ -81,7 +81,7 @@ public:
     }
 
     // Prefix increment operator
-    Angle& operator++()
+    virtual Angle& operator++()
     {
         radians = normalize(radians + (M_PI / 180.0)); // add 1 degree
         return *this;
@@ -96,7 +96,7 @@ public:
     }
 
     // Prefix decrement operator
-    Angle& operator--()
+    virtual Angle& operator--()
     {
         radians = normalize(radians - (M_PI / 180.0)); // subtract 1 degree
         return *this;
@@ -205,9 +205,9 @@ public:
     {
         out.setf(ios::fixed);     // "fixed" means don't use scientific notation
         out.setf(ios::showpoint); // "showpoint" means always show the decimal point
-        out.precision(1);         // Set the precision to 1 decimal place of accuracy.
+        out.precision(2);         // Set the precision to 1 decimal place of accuracy.
 
-        out << getRadians(); // display degrees
+        out << getRadians() << "radians"; // display degrees
     }
 
     Angle operator++(int) override
@@ -222,6 +222,19 @@ public:
         AngleRadians temp(*this);
         setRadians(getRadians() - (M_PI / 8));
         return temp;
+    }
+   
+    Angle& operator--() override
+    {
+        setRadians(getRadians() - PI_EIGHT);
+        return *this;
+    }
+   
+    // Prefix increment operator
+    Angle& operator++() override
+    {
+        setRadians(getRadians() + PI_EIGHT);
+        return *this;
     }
 
 };
