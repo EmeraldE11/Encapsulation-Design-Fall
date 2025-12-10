@@ -35,7 +35,7 @@ class Howitzer
       friend ::TestHowitzer;
 
       // default constructor
-      Howitzer() : muzzleVelocity(DEFAULT_MUZZLE_VELOCITY), elevation(45.0) {}
+      Howitzer();
 
       // draw
       void draw(ogstream& gout, double flightTime) const
@@ -46,7 +46,10 @@ class Howitzer
       }
 
       // where is the howitzer at right now?
-      Position & getPosition() { return position; }
+      Position getPosition() const { return position; }
+      
+      // get a reference to the position (for modification)
+      Position& getPositionRef() { return position; }
 
       // generate a new position for the howitzer
       void generatePosition(const Position& posUpperRight)
