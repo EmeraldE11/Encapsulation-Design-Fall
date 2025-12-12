@@ -124,6 +124,10 @@ Position Ground::getTarget() const
          ground[i] = ground[i - 1] + dy + random(-TEXTURE, TEXTURE);
          if (ground[i] < 0.0)
             ground[i] = 0.0;
+         // Clamp to maximum height
+         double maxHeight = posUpperRight.getPixelsY();
+         if (ground[i] > maxHeight)
+            ground[i] = maxHeight;
          assert(ground[i] >= 0.0 && ground[i] <= posUpperRight.getPixelsY());
       }
    }
