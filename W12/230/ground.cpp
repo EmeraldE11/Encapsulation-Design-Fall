@@ -10,6 +10,7 @@
 #include "ground.h"   // for the Ground class definition
 #include "uiDraw.h"   // for random() and drawLine()
 #include <cassert>
+#include <cmath>      // for isnan() and isinf()
 
 const int WIDTH_HOWITZER = 14;
 
@@ -109,8 +110,21 @@ Position Ground::getTarget() const
       else
       { 
          // what percentage of the elevation were we at?
-         double percent = (ground[i - 1] - posMinimum.getPixelsY()) /
-                          (posMaximum.getPixelsY() - posMinimum.getPixelsY());
+         double minPixels = posMinimum.getPixelsY();
+         double maxPixels = posMaximum.getPixelsY();
+         double range = maxPixels - minPixels;
+         
+         // Avoid division by zero - if range is zero or invalid, use a default percent
+         double percent = 0.0;
+         if (range > 0.0 && !isnan(range) && !isinf(range))
+         {
+            percent = (ground[i - 1] - minPixels) / range;
+            // Clamp percent to [0, 1] to avoid issues
+            if (percent < 0.0)
+               percent = 0.0;
+            if (percent > 1.0)
+               percent = 1.0;
+         }
 
          // set the slope of the ground
          dy += (1.0 - percent) * random(0.0, LUMPINESS) +
@@ -119,6 +133,10 @@ Position Ground::getTarget() const
             dy = MAX_SLOPE;
          if (dy < -MAX_SLOPE)
             dy = -MAX_SLOPE;
+         
+         // Ensure dy is not NaN
+         if (isnan(dy) || isinf(dy))
+            dy = MAX_SLOPE / 2.0;
 
          // determine the elevation according to the slope
          ground[i] = ground[i - 1] + dy + random(-TEXTURE, TEXTURE);
