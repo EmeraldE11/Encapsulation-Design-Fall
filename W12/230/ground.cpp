@@ -78,6 +78,12 @@ Position Ground::getTarget() const
 
    // determine the location of the target
    iHowitzer = (int)(posHowitzer.getPixelsX());
+   // Clamp iHowitzer to valid range [0, width-1]
+   if (iHowitzer < 0)
+      iHowitzer = 0;
+   if (iHowitzer >= width)
+      iHowitzer = width - 1;
+   
    if (iHowitzer > width / 2)
       iTarget = random((int)(width * 0.05), (int)(width * 0.45));
    else
