@@ -21,6 +21,7 @@
 		C175B2102B1AAE5E0002D80E /* acceleration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C175B20B2B1AAE020002D80E /* acceleration.cpp */; };
 		C175B2112B1AAE5E0002D80E /* angle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C175B20E2B1AAE020002D80E /* angle.cpp */; };
 		C19F89862B2217290074D55A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C19F89852B2216EA0074D55A /* main.cpp */; };
+		DEB1D2152EEBE77700219F17 /* howitzer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DEB1D2142EEBE77700219F17 /* howitzer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -72,6 +73,7 @@
 		C1B0EA5727E221C6004C9F71 /* testHowitzer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = testHowitzer.h; sourceTree = "<group>"; };
 		C1B0EA5827E221C6004C9F71 /* testGround.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = testGround.h; sourceTree = "<group>"; };
 		C1B0EA5927E221C6004C9F71 /* testProjectile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = testProjectile.h; sourceTree = "<group>"; };
+		DEB1D2142EEBE77700219F17 /* howitzer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = howitzer.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 				C175B20A2B1AAE020002D80E /* testAngle.h */,
 				C104FC462B182A99008887B0 /* unitTest.h */,
 				C10404D825F94C6D0060A389 /* ground.cpp */,
+				DEB1D2142EEBE77700219F17 /* howitzer.cpp */,
 				C10404D125F94C6D0060A389 /* physics.cpp */,
 				C10404D525F94C6D0060A389 /* position.cpp */,
 				C10404D225F94C6D0060A389 /* projectile.cpp */,
@@ -202,6 +205,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DEB1D2152EEBE77700219F17 /* howitzer.cpp in Sources */,
 				C19F89862B2217290074D55A /* main.cpp in Sources */,
 				C175B2102B1AAE5E0002D80E /* acceleration.cpp in Sources */,
 				C175B2112B1AAE5E0002D80E /* angle.cpp in Sources */,
