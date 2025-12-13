@@ -19,7 +19,8 @@
 #define DEFAULT_PROJECTILE_RADIUS 0.077545   // m
 
 // forward declaration for the unit test class
-class TestProjectile; 
+class TestProjectile;
+class Simulator; 
 
  /**********************************************************************
   * Projectile
@@ -60,4 +61,7 @@ private:
    double mass;           // weight of the M795 projectile. Defaults to 46.7 kg
    double radius;         // radius of M795 projectile. Defaults to 0.077545 m
    std::list<PositionVelocityTime> flightPath;
+   
+   // Make Simulator a friend so it can access flightPath for drawing
+   friend class Simulator;
 };

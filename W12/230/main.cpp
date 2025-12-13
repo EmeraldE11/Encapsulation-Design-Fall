@@ -29,9 +29,17 @@ void callBack(const Interface* pUI, void* p)
    // is the first step of every single callback function in OpenGL. 
    Simulator* pSim = (Simulator*)p;
 
-   ogstream gout;
+   // Handle user input
+   pSim->input(pUI);
    
-   // Draw the simulator (ground and howitzer)
+   // Update the simulation (advance time, move projectile, etc.)
+   static unsigned int frameCount = 0;
+   frameCount++;
+   double time = frameCount / 30.0;  // approximately 30 frames per second
+   pSim->update(time);
+   
+   // Draw everything
+   ogstream gout;
    pSim->draw(gout);
 }
 
