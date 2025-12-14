@@ -17,8 +17,6 @@
 #include "uiDraw.h"
 
 
-#pragma once
-
 #define DEFAULT_MUZZLE_VELOCITY   827.00     // m/s
 
 
