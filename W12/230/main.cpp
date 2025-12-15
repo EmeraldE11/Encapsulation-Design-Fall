@@ -62,16 +62,30 @@ int main(int argc, char** argv)
    // unit tests
    testRunner();
   
+#ifdef _WIN32
+   // Add a pause so you can see test results before window appears
+   cout << "\n\nPress any key to continue to graphics window...\n";
+   system("pause");
+#endif
+  
    // Initialize OpenGL
    Position posUpperRight;
    posUpperRight.setZoom(40.0 /* 40 meters equals 1 pixel */);
    posUpperRight.setPixelsX(700.0);
    posUpperRight.setPixelsY(500.0);
+   
+#ifdef _WIN32
+   cout << "Initializing OpenGL window...\n";
+#endif
+   
    Interface ui("M777 Howitzer Simulation", posUpperRight);
 
    // Initialize the simulation.
    Simulator sim(posUpperRight);
 
+#ifdef _WIN32
+   cout << "Starting graphics loop...\n";
+#endif
 
    // set everything into action
    ui.run(callBack, (void *)&sim);
