@@ -35,7 +35,7 @@ void callBack(const Interface* pUI, void* p)
    // Update the simulation (advance time, move projectile, etc.)
    static unsigned int frameCount = 0;
    frameCount++;
-   double time = frameCount / 30.0;  // approximately 30 frames per second
+   double time = frameCount / 60.0;  // 60 frames per second for faster animation
    pSim->update(time);
    
    // Draw everything

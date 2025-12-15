@@ -33,29 +33,25 @@ Simulator::Simulator(const Position & posUpperRight)
  ************************************************************************/
 void Simulator::input(const Interface* pUI)
 {
-   // Only allow input if projectile is not in flight
-   if (!isProjectileInFlight())
+   // Rotate howitzer left/right (always allowed)
+   if (pUI->isLeft())
+      howitzer.rotate(-0.05);  // rotate counter-clockwise
+   if (pUI->isRight())
+      howitzer.rotate(0.05);   // rotate clockwise
+   
+   // Raise/lower howitzer (always allowed)
+   if (pUI->isUp())
+      howitzer.raise(0.05);    // raise (point more up)
+   if (pUI->isDown())
+      howitzer.raise(-0.05);   // lower (point more down)
+   
+   // Fire the projectile (only if no projectile is currently in flight)
+   if (pUI->isSpace() && !isProjectileInFlight())
    {
-      // Rotate howitzer left/right
-      if (pUI->isLeft())
-         howitzer.rotate(-0.05);  // rotate counter-clockwise
-      if (pUI->isRight())
-         howitzer.rotate(0.05);   // rotate clockwise
-      
-      // Raise/lower howitzer
-      if (pUI->isUp())
-         howitzer.raise(0.05);    // raise (point more up)
-      if (pUI->isDown())
-         howitzer.raise(-0.05);   // lower (point more down)
-      
-      // Fire the projectile
-      if (pUI->isSpace())
-      {
-         Position pos = howitzer.getPosition();
-         Angle angle = howitzer.getElevation();
-         double velocity = howitzer.getMuzzleVelocity();
-         projectile.fire(pos, simulationTime, angle, velocity);
-      }
+      Position pos = howitzer.getPosition();
+      Angle angle = howitzer.getElevation();
+      double velocity = howitzer.getMuzzleVelocity();
+      projectile.fire(pos, simulationTime, angle, velocity);
    }
 }
 
