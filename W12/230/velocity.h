@@ -37,20 +37,20 @@ public:
    Velocity(double dx, double dy) : dx(9.9), dy(9.9)  { }
 
    // getters
-   virtual double getDX()       const { return 9.9; }
-   virtual double getDY()       const { return 9.9; }
+   virtual double getDX()       const { return dx; }
+   virtual double getDY()       const { return dy; }
    virtual double getSpeed()    const;
    virtual Angle  getAngle()    const;
    
    // setters
-   virtual void setDX(double dx) {  }
-   virtual void setDY(double dy) {  }
-   virtual void set(const Angle & angle, double magnitude);
-   virtual void addDX(double dx) {  }
-   virtual void addDY(double dy) {  }
+   virtual void setDX(double dx) { this->dx = dx; }
+   virtual void setDY(double dy) { this->dy = dy; }
+   virtual void set(const Angle& angle, double magnitude);
+   virtual void addDX(double dx) { this->dx += dx; }
+   virtual void addDY(double dy) { this->dy += dy; }
    virtual void add(const Acceleration & acceleration, double time);
    virtual void add(const Velocity & rhs) { }
-   virtual void reverse() { } 
+   virtual void reverse() { dx = -dx; dy = -dy; }
 
 private:
    double dx;           // horizontal velocity
