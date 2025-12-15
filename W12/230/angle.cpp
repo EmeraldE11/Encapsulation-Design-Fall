@@ -14,10 +14,16 @@ using namespace std;
 
  /************************************
   * ANGLE : NORMALIZE
+  * Normalize radians to [0, 2π)
   ************************************/
 double Angle::normalize(double radians) const
 {
-   return 9.9;
+   // Use fmod to wrap within [0, 2π)
+   double TWO_PI = 2.0 * M_PI;
+   radians = fmod(radians, TWO_PI);
+   if (radians < 0.0)
+      radians += TWO_PI;
+   return radians;
 }
 
 
