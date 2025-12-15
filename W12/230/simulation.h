@@ -33,6 +33,9 @@ public:
    
    // draw everything
    void draw(ogstream& gout) const;
+   
+   // display everything with status text
+   void display(ogstream& gout) const;
 
 private:
    Ground ground;

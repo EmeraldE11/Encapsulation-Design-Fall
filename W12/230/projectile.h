@@ -46,6 +46,24 @@ public:
    // based on a provided position, simulator time, angle, and muzzle velocity, put the first element in the flight path
    void fire(const Position& pos, double simulationTime, const Angle& angle, double muzzleVelocity);
 
+   // check if projectile is currently flying
+   bool flying() const { return !flightPath.empty(); }
+
+   // get the current position of the projectile
+   Position getPosition() const;
+
+   // get the current altitude (y position in meters)
+   double getAltitude() const;
+
+   // get the current speed (magnitude of velocity in m/s)
+   double getSpeed() const;
+
+   // get the flight time (time since fired)
+   double getFlightTime(double currentTime) const;
+
+   // draw the projectile and its flight path
+   void draw(ogstream& gout) const;
+
 
 private:
 

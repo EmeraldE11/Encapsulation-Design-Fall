@@ -40,7 +40,7 @@ void callBack(const Interface* pUI, void* p)
    
    // Draw everything
    ogstream gout;
-   pSim->draw(gout);
+   pSim->display(gout);
 }
 
 double Position::metersFromPixels = 40.0;

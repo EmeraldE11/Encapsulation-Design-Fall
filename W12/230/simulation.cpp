@@ -10,6 +10,8 @@
 #include "simulation.h"  // for SIMULATION
 #include "uiDraw.h"
 #include "uiInteract.h"
+#include <cmath>  // for abs()
+#include <iomanip>  // for setf, precision
 
 /**********************************************************************
  * SIMULATOR : CONSTRUCTOR
@@ -111,6 +113,51 @@ void Simulator::draw(ogstream& gout) const
             prevPos = it->pos;
          }
       }
+   }
+}
+
+/**********************************************************************
+ * SIMULATOR : DISPLAY
+ * Display the flight path up to the moment
+ ************************************************************************/
+void Simulator::display(ogstream& gout) const
+{
+   // draw the ground
+   ground.draw(gout);
+   
+   // draw the path of the shell as it travels through the air
+   projectile.draw(gout);
+   
+   // draw the howitzer itself
+   double flightTime = projectile.flying() ? projectile.getFlightTime(simulationTime) : -1.0;
+   howitzer.draw(gout, flightTime);
+   
+   // status text
+   Position posStatus;
+   posStatus.addPixelsX(10.0);
+   posStatus.addPixelsY(posUpperRight.getPixelsY() - 20.0);
+   gout = posStatus;
+   gout.setf(std::ios::fixed | std::ios::showpoint);
+   gout.precision(1);
+   
+   if (projectile.flying())
+   {
+      gout << "altitude: " << projectile.getAltitude() << std::endl;
+      gout << "speed: " << projectile.getSpeed() << " m/s" << std::endl;
+      
+      // Calculate distance from howitzer
+      Position projPos = projectile.getPosition();
+      Position howPos = howitzer.getPosition();
+      double distance = std::abs(projPos.getMetersX() - howPos.getMetersX());
+      gout << "distance: " << distance << " m" << std::endl;
+      
+      posStatus.addPixelsY(-30.0);
+      gout = posStatus;
+      gout << "hang time: " << projectile.getFlightTime(simulationTime) << " s" << std::endl;
+   }
+   else
+   {
+      gout << "angle: " << howitzer.getElevation() << std::endl;
    }
 }
 

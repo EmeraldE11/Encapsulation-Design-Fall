@@ -11,6 +11,7 @@
  #include "projectile.h"
  #include "angle.h"
  #include "acceleration.h"
+ #include "uiDraw.h"
  #include <cmath>
  using namespace std;
 
@@ -118,3 +119,58 @@
 	 // Add new moment to flight path
 	 flightPath.push_back(nextMoment);
  }
+
+Position Projectile::getPosition() const
+{
+   if (flightPath.empty())
+      return Position(0.0, 0.0);
+   return flightPath.back().pos;
+}
+
+double Projectile::getAltitude() const
+{
+   if (flightPath.empty())
+      return 0.0;
+   return flightPath.back().pos.getMetersY();
+}
+
+double Projectile::getSpeed() const
+{
+   if (flightPath.empty())
+      return 0.0;
+   const Velocity& v = flightPath.back().v;
+   double dx = v.getDX();
+   double dy = v.getDY();
+   return sqrt(dx * dx + dy * dy);
+}
+
+double Projectile::getFlightTime(double currentTime) const
+{
+   if (flightPath.empty())
+      return 0.0;
+   return currentTime - flightPath.front().t;
+}
+
+void Projectile::draw(ogstream& gout) const
+{
+   if (flightPath.empty())
+      return;
+
+   // Draw the projectile at its current position
+   Position pos = getPosition();
+   double age = flightPath.back().t - flightPath.front().t;
+   gout.drawProjectile(pos, age);
+
+   // Draw the flight path (trail)
+   if (flightPath.size() > 1)
+   {
+      auto it = flightPath.begin();
+      Position prevPos = it->pos;
+      ++it;
+      for (; it != flightPath.end(); ++it)
+      {
+         gout.drawLine(prevPos, it->pos, 0.8, 0.8, 0.8);
+         prevPos = it->pos;
+      }
+   }
+}
