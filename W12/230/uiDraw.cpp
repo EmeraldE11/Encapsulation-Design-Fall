@@ -140,15 +140,27 @@ void ogstream :: drawProjectile(const Position& pos, double age)
 {
    const double tailLength = 5.0;
 
-   GLfloat color = (GLfloat)(age / tailLength);
+   // Clamp color between 0 and 1, and invert so newer projectiles are brighter
+   GLfloat colorValue = (GLfloat)(age / tailLength);
+   if (colorValue > 1.0)
+      colorValue = 1.0;
+   if (colorValue < 0.0)
+      colorValue = 0.0;
    
+   // Make projectile more visible - use bright yellow/orange color
+   // Older projectiles fade to gray
+   GLfloat red = (GLfloat)(1.0 - colorValue * 0.5);   // Start bright, fade to 0.5
+   GLfloat green = (GLfloat)(0.8 - colorValue * 0.3); // Start bright, fade to 0.5
+   GLfloat blue = (GLfloat)(0.0);                      // Always 0 (yellow/orange)
+   
+   // Make projectile larger so it's easier to see
    Position posBegin;
    Position posEnd;
-   posBegin.setPixelsX(pos.getPixelsX() - 1.5);
-   posBegin.setPixelsY(pos.getPixelsY() - 1.5);
-   posEnd.setPixelsX(pos.getPixelsX() + 1.5);
-   posEnd.setPixelsY(pos.getPixelsY() + 1.5);
-   drawRectangle(posBegin, posEnd, color /* red % */, color /* green % */, color /* blue % */);
+   posBegin.setPixelsX(pos.getPixelsX() - 3.0);
+   posBegin.setPixelsY(pos.getPixelsY() - 3.0);
+   posEnd.setPixelsX(pos.getPixelsX() + 3.0);
+   posEnd.setPixelsY(pos.getPixelsY() + 3.0);
+   drawRectangle(posBegin, posEnd, red, green, blue);
 }
 
 /************************************************************************
